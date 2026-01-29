@@ -117,6 +117,6 @@ The application follows the **MVVM (Model-View-ViewModel)** architectural patter
 
 ## 📧 Contact
 
-Project Link: [https://github.com/yourusername/dnd-companion-app](https://github.com/yourusername/dnd-companion-app)
+Project Link: [https://github.com/UND34TAK3R/TomeMate](https://github.com/UND34TAK3R/TomeMate)
 
 **Note:** Dungeons & Dragons and D&D are trademarks of Wizards of the Coast LLC. This application is not affiliated with or endorsed by Wizards of the Coast.
