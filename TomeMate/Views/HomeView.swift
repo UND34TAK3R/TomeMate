@@ -14,19 +14,11 @@ struct HomeView: View {
     @EnvironmentObject var authManager: AuthManager
     
     var body: some View {
-        VStack{
-            Text("Welcome, \(authManager.user?.email ?? "User")")
-                .font(.title)
-                .padding()
-            
-            Button{
-                authManager.signOut()
-            } label: {
-                Text("Logout")
-                    .foregroundStyle(.white)
-                    .background(.red)
-                    .padding()
-                    .cornerRadius(10)
+        Group {
+            if authManager.user != nil {
+                Text("Welcome user!")
+            } else {
+                LoginView()
             }
         }
     }

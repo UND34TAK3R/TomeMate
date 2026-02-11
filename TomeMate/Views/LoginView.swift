@@ -12,63 +12,68 @@ struct LoginView: View {
     @State private var password = ""
     @EnvironmentObject var authManager: AuthManager
     @State private var errorMessage: String?
+    @State private var glowPulse = false
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Welcome to DnD App")
-                .font(.largeTitle).bold()
+        ZStack {
+            ArcaneTheme.background
+                .ignoresSafeArea()
+            RadialGradient(
+                gradient: Gradient(colors: [
+                    Color.clear,
+                    Color.black.opacity(0.7)
+                ]),
+                center: .center,
+                startRadius: 100,
+                endRadius: 600
+            )
+            .ignoresSafeArea()
+            ArcaneParticlesView()
+            ArcaneCard {
+                VStack(spacing: 24) {
+                    Text("Welcome back, adventurer!")
+                        .font(.custom("Cinzel-Bold", size: 30))
+                            .foregroundColor(.white)
+                            .shadow(color: ArcaneTheme.glow,
+                                    radius: glowPulse ? 20 : 6)
+                            .onAppear {
+                                withAnimation(
+                                    .easeInOut(duration: 1.5)
+                                    .repeatForever(autoreverses: true)
+                                ) {
+                                    glowPulse.toggle()
+                                }
+                            }
 
-            TextField("Email", text: $email)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .autocapitalization(.none)
+                    ArcaneTextField(title: "Email", text: $email)
+                    ArcaneTextField(title: "Password", text: $password, isSecure: true)
 
-            SecureField("Password", text: $password)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
-            if let errorMessage = errorMessage {
-                Text(errorMessage)
-                    .foregroundColor(.red)
-                    .font(.caption)
-            }
-
-            Button("Register"){
-                if email.isEmpty && password.isEmpty {
-                    self.errorMessage = "Enter both email and password"
-                    return
-                }
-
-                authManager.register(email: email, password: password) {
-                    result in
-                    switch result {
-                    case .success:
-                        print ("Registration Successful")
-                    case .failure(let error):
-                        self.errorMessage = error.localizedDescription
+                    if let errorMessage = errorMessage {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .font(.caption)
                     }
-                }
-            }
 
-            
-            Button("Login"){
-                if email.isEmpty && password.isEmpty {
-                    self.errorMessage = "Enter both email and password"
-                    return
-                }
-                authManager.login(email: email, password: password) {
-                    result in
-                    switch result {
-                    case .success:
-                        print ("Login Successful")
-                    case .failure(let error):
-                        self.errorMessage = error.localizedDescription
+                    Button {
+                        authManager.login(email: email, password: password) {
+                            result in
+                            switch result {
+                            case .success:
+                                print("Successful login")
+                            case .failure(let error):
+                                self.errorMessage = error.localizedDescription
+                            }
+                        }
+                    } label: {
+                        Text("Login")
+                            .fontWeight(.bold)
                     }
+                    .arcaneButton()
                 }
             }
         }
-        .padding()
     }
 }
 #Preview {
     LoginView()
-        .environmentObject(AuthManager())
 }

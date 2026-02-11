@@ -10,6 +10,7 @@ import CoreData
 
 @main
 struct TomeMateApp: App {
+    @StateObject private var authManager = AuthManager()
     let persistenceController = PersistenceController.shared
     var body: some Scene {
         let context = persistenceController.container.viewContext
@@ -18,6 +19,7 @@ struct TomeMateApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(dateHolder)
+                .environmentObject(authManager)
         }
     }
 }
