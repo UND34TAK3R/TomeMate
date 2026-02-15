@@ -1,0 +1,2686 @@
+{
+  "classes": [
+    {
+      "id": "artificer",
+      "name": "Artificer",
+      "source": "TCE",
+      "page": 9,
+      "hitDice": 8,
+      "primaryAbility": "con, int"
+    },
+    {
+      "id": "artificer",
+      "name": "Artificer",
+      "source": "EFA",
+      "page": 7,
+      "hitDice": 8,
+      "primaryAbility": "con, int"
+    },
+    {
+      "id": "barbarian",
+      "name": "Barbarian",
+      "source": "PHB",
+      "page": 46,
+      "hitDice": 12,
+      "primaryAbility": "str, con"
+    },
+    {
+      "id": "barbarian",
+      "name": "Barbarian",
+      "source": "XPHB",
+      "page": 50,
+      "hitDice": 12,
+      "primaryAbility": "str, con"
+    },
+    {
+      "id": "bard",
+      "name": "Bard",
+      "source": "PHB",
+      "page": 51,
+      "hitDice": 8,
+      "primaryAbility": "dex, cha"
+    },
+    {
+      "id": "bard",
+      "name": "Bard",
+      "source": "XPHB",
+      "page": 58,
+      "hitDice": 8,
+      "primaryAbility": "dex, cha"
+    },
+    {
+      "id": "cleric",
+      "name": "Cleric",
+      "source": "PHB",
+      "page": 56,
+      "hitDice": 8,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "cleric",
+      "name": "Cleric",
+      "source": "XPHB",
+      "page": 68,
+      "hitDice": 8,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "source": "PHB",
+      "page": 64,
+      "hitDice": 8,
+      "primaryAbility": "int, wis"
+    },
+    {
+      "id": "druid",
+      "name": "Druid",
+      "source": "XPHB",
+      "page": 78,
+      "hitDice": 8,
+      "primaryAbility": "int, wis"
+    },
+    {
+      "id": "fighter",
+      "name": "Fighter",
+      "source": "PHB",
+      "page": 70,
+      "hitDice": 10,
+      "primaryAbility": "str, con"
+    },
+    {
+      "id": "fighter",
+      "name": "Fighter",
+      "source": "XPHB",
+      "page": 90,
+      "hitDice": 10,
+      "primaryAbility": "str, con"
+    },
+    {
+      "id": "monk",
+      "name": "Monk",
+      "source": "PHB",
+      "page": 76,
+      "hitDice": 8,
+      "primaryAbility": "str, dex"
+    },
+    {
+      "id": "monk",
+      "name": "Monk",
+      "source": "XPHB",
+      "page": 100,
+      "hitDice": 8,
+      "primaryAbility": "str, dex"
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "source": "PHB",
+      "page": 82,
+      "hitDice": 10,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "paladin",
+      "name": "Paladin",
+      "source": "XPHB",
+      "page": 108,
+      "hitDice": 10,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "ranger",
+      "name": "Ranger",
+      "source": "PHB",
+      "page": 89,
+      "hitDice": 10,
+      "primaryAbility": "str, dex"
+    },
+    {
+      "id": "ranger",
+      "name": "Ranger",
+      "source": "XPHB",
+      "page": 118,
+      "hitDice": 10,
+      "primaryAbility": "str, dex"
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "source": "PHB",
+      "page": 94,
+      "hitDice": 8,
+      "primaryAbility": "dex, int"
+    },
+    {
+      "id": "rogue",
+      "name": "Rogue",
+      "source": "XPHB",
+      "page": 128,
+      "hitDice": 8,
+      "primaryAbility": "dex, int"
+    },
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "source": "PHB",
+      "page": 99,
+      "hitDice": 6,
+      "primaryAbility": "con, cha"
+    },
+    {
+      "id": "sorcerer",
+      "name": "Sorcerer",
+      "source": "XPHB",
+      "page": 138,
+      "hitDice": 6,
+      "primaryAbility": "con, cha"
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "source": "PHB",
+      "page": 105,
+      "hitDice": 8,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "warlock",
+      "name": "Warlock",
+      "source": "XPHB",
+      "page": 152,
+      "hitDice": 8,
+      "primaryAbility": "wis, cha"
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "source": "PHB",
+      "page": 112,
+      "hitDice": 6,
+      "primaryAbility": "int, wis"
+    },
+    {
+      "id": "wizard",
+      "name": "Wizard",
+      "source": "XPHB",
+      "page": 164,
+      "hitDice": 6,
+      "primaryAbility": "int, wis"
+    }
+  ],
+  "subclasses": [
+    {
+      "id": "artificer-alchemist",
+      "name": "Alchemist",
+      "shortName": "Alchemist",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 14
+    },
+    {
+      "id": "artificer-alchemist",
+      "name": "Alchemist",
+      "shortName": "Alchemist",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "artificer-armorer",
+      "name": "Armorer",
+      "shortName": "Armorer",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 15
+    },
+    {
+      "id": "artificer-armorer",
+      "name": "Armorer",
+      "shortName": "Armorer",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "artificer-artillerist",
+      "name": "Artillerist",
+      "shortName": "Artillerist",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 17
+    },
+    {
+      "id": "artificer-artillerist",
+      "name": "Artillerist",
+      "shortName": "Artillerist",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "artificer-battle-smith",
+      "name": "Battle Smith",
+      "shortName": "Battle Smith",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 18
+    },
+    {
+      "id": "artificer-battle-smith",
+      "name": "Battle Smith",
+      "shortName": "Battle Smith",
+      "className": "Artificer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "artificer-alchemist",
+      "name": "Alchemist",
+      "shortName": "Alchemist",
+      "className": "Artificer",
+      "source": "EFA",
+      "page": 12
+    },
+    {
+      "id": "artificer-armorer",
+      "name": "Armorer",
+      "shortName": "Armorer",
+      "className": "Artificer",
+      "source": "EFA",
+      "page": 14
+    },
+    {
+      "id": "artificer-artillerist",
+      "name": "Artillerist",
+      "shortName": "Artillerist",
+      "className": "Artificer",
+      "source": "EFA",
+      "page": 16
+    },
+    {
+      "id": "artificer-battle-smith",
+      "name": "Battle Smith",
+      "shortName": "Battle Smith",
+      "className": "Artificer",
+      "source": "EFA",
+      "page": 18
+    },
+    {
+      "id": "artificer-cartographer",
+      "name": "Cartographer",
+      "shortName": "Cartographer",
+      "className": "Artificer",
+      "source": "EFA",
+      "page": 20
+    },
+    {
+      "id": "barbarian-path-of-the-berserker",
+      "name": "Path of the Berserker",
+      "shortName": "Berserker",
+      "className": "Barbarian",
+      "source": "PHB",
+      "page": 49
+    },
+    {
+      "id": "barbarian-path-of-the-berserker",
+      "name": "Path of the Berserker",
+      "shortName": "Berserker",
+      "className": "Barbarian",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-totem-warrior",
+      "name": "Path of the Totem Warrior",
+      "shortName": "Totem Warrior",
+      "className": "Barbarian",
+      "source": "PHB",
+      "page": 50
+    },
+    {
+      "id": "barbarian-path-of-the-totem-warrior",
+      "name": "Path of the Totem Warrior",
+      "shortName": "Totem Warrior",
+      "className": "Barbarian",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-battlerager",
+      "name": "Path of the Battlerager",
+      "shortName": "Battlerager",
+      "className": "Barbarian",
+      "source": "SCAG",
+      "page": 121
+    },
+    {
+      "id": "barbarian-path-of-the-battlerager",
+      "name": "Path of the Battlerager",
+      "shortName": "Battlerager",
+      "className": "Barbarian",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-ancestral-guardian",
+      "name": "Path of the Ancestral Guardian",
+      "shortName": "Ancestral Guardian",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 9
+    },
+    {
+      "id": "barbarian-path-of-the-ancestral-guardian",
+      "name": "Path of the Ancestral Guardian",
+      "shortName": "Ancestral Guardian",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-storm-herald",
+      "name": "Path of the Storm Herald",
+      "shortName": "Storm Herald",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 10
+    },
+    {
+      "id": "barbarian-path-of-the-storm-herald",
+      "name": "Path of the Storm Herald",
+      "shortName": "Storm Herald",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-zealot",
+      "name": "Path of the Zealot",
+      "shortName": "Zealot",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 11
+    },
+    {
+      "id": "barbarian-path-of-the-zealot",
+      "name": "Path of the Zealot",
+      "shortName": "Zealot",
+      "className": "Barbarian",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-beast",
+      "name": "Path of the Beast",
+      "shortName": "Beast",
+      "className": "Barbarian",
+      "source": "TCE",
+      "page": 24
+    },
+    {
+      "id": "barbarian-path-of-the-beast",
+      "name": "Path of the Beast",
+      "shortName": "Beast",
+      "className": "Barbarian",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-wild-magic",
+      "name": "Path of Wild Magic",
+      "shortName": "Wild Magic",
+      "className": "Barbarian",
+      "source": "TCE",
+      "page": 25
+    },
+    {
+      "id": "barbarian-path-of-wild-magic",
+      "name": "Path of Wild Magic",
+      "shortName": "Wild Magic",
+      "className": "Barbarian",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-giant",
+      "name": "Path of the Giant",
+      "shortName": "Giant",
+      "className": "Barbarian",
+      "source": "BGG",
+      "page": 11
+    },
+    {
+      "id": "barbarian-path-of-the-giant",
+      "name": "Path of the Giant",
+      "shortName": "Giant",
+      "className": "Barbarian",
+      "source": "BGG",
+      "page": 0
+    },
+    {
+      "id": "barbarian-path-of-the-berserker",
+      "name": "Path of the Berserker",
+      "shortName": "Berserker",
+      "className": "Barbarian",
+      "source": "XPHB",
+      "page": 54
+    },
+    {
+      "id": "barbarian-path-of-the-wild-heart",
+      "name": "Path of the Wild Heart",
+      "shortName": "Wild Heart",
+      "className": "Barbarian",
+      "source": "XPHB",
+      "page": 55
+    },
+    {
+      "id": "barbarian-path-of-the-world-tree",
+      "name": "Path of the World Tree",
+      "shortName": "World Tree",
+      "className": "Barbarian",
+      "source": "XPHB",
+      "page": 56
+    },
+    {
+      "id": "barbarian-path-of-the-zealot",
+      "name": "Path of the Zealot",
+      "shortName": "Zealot",
+      "className": "Barbarian",
+      "source": "XPHB",
+      "page": 57
+    },
+    {
+      "id": "bard-college-of-lore",
+      "name": "College of Lore",
+      "shortName": "Lore",
+      "className": "Bard",
+      "source": "PHB",
+      "page": 54
+    },
+    {
+      "id": "bard-college-of-lore",
+      "name": "College of Lore",
+      "shortName": "Lore",
+      "className": "Bard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-valor",
+      "name": "College of Valor",
+      "shortName": "Valor",
+      "className": "Bard",
+      "source": "PHB",
+      "page": 55
+    },
+    {
+      "id": "bard-college-of-valor",
+      "name": "College of Valor",
+      "shortName": "Valor",
+      "className": "Bard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-glamour",
+      "name": "College of Glamour",
+      "shortName": "Glamour",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 14
+    },
+    {
+      "id": "bard-college-of-glamour",
+      "name": "College of Glamour",
+      "shortName": "Glamour",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-swords",
+      "name": "College of Swords",
+      "shortName": "Swords",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 15
+    },
+    {
+      "id": "bard-college-of-swords",
+      "name": "College of Swords",
+      "shortName": "Swords",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-whispers",
+      "name": "College of Whispers",
+      "shortName": "Whispers",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 16
+    },
+    {
+      "id": "bard-college-of-whispers",
+      "name": "College of Whispers",
+      "shortName": "Whispers",
+      "className": "Bard",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-creation",
+      "name": "College of Creation",
+      "shortName": "Creation",
+      "className": "Bard",
+      "source": "TCE",
+      "page": 28
+    },
+    {
+      "id": "bard-college-of-creation",
+      "name": "College of Creation",
+      "shortName": "Creation",
+      "className": "Bard",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-eloquence",
+      "name": "College of Eloquence",
+      "shortName": "Eloquence",
+      "className": "Bard",
+      "source": "TCE",
+      "page": 29
+    },
+    {
+      "id": "bard-college-of-eloquence",
+      "name": "College of Eloquence",
+      "shortName": "Eloquence",
+      "className": "Bard",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-spirits",
+      "name": "College of Spirits",
+      "shortName": "Spirits",
+      "className": "Bard",
+      "source": "VRGR",
+      "page": 28
+    },
+    {
+      "id": "bard-college-of-spirits",
+      "name": "College of Spirits",
+      "shortName": "Spirits",
+      "className": "Bard",
+      "source": "VRGR",
+      "page": 0
+    },
+    {
+      "id": "bard-college-of-dance",
+      "name": "College of Dance",
+      "shortName": "Dance",
+      "className": "Bard",
+      "source": "XPHB",
+      "page": 64
+    },
+    {
+      "id": "bard-college-of-glamour",
+      "name": "College of Glamour",
+      "shortName": "Glamour",
+      "className": "Bard",
+      "source": "XPHB",
+      "page": 65
+    },
+    {
+      "id": "bard-college-of-lore",
+      "name": "College of Lore",
+      "shortName": "Lore",
+      "className": "Bard",
+      "source": "XPHB",
+      "page": 66
+    },
+    {
+      "id": "bard-college-of-valor",
+      "name": "College of Valor",
+      "shortName": "Valor",
+      "className": "Bard",
+      "source": "XPHB",
+      "page": 67
+    },
+    {
+      "id": "bard-college-of-the-moon",
+      "name": "College of the Moon",
+      "shortName": "Moon",
+      "className": "Bard",
+      "source": "FRHoF",
+      "page": 16
+    },
+    {
+      "id": "cleric-knowledge-domain",
+      "name": "Knowledge Domain",
+      "shortName": "Knowledge",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 59
+    },
+    {
+      "id": "cleric-knowledge-domain",
+      "name": "Knowledge Domain",
+      "shortName": "Knowledge",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-life-domain",
+      "name": "Life Domain",
+      "shortName": "Life",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 60
+    },
+    {
+      "id": "cleric-life-domain",
+      "name": "Life Domain",
+      "shortName": "Life",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-light-domain",
+      "name": "Light Domain",
+      "shortName": "Light",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 60
+    },
+    {
+      "id": "cleric-light-domain",
+      "name": "Light Domain",
+      "shortName": "Light",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-nature-domain",
+      "name": "Nature Domain",
+      "shortName": "Nature",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 61
+    },
+    {
+      "id": "cleric-nature-domain",
+      "name": "Nature Domain",
+      "shortName": "Nature",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-tempest-domain",
+      "name": "Tempest Domain",
+      "shortName": "Tempest",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 62
+    },
+    {
+      "id": "cleric-tempest-domain",
+      "name": "Tempest Domain",
+      "shortName": "Tempest",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-trickery-domain",
+      "name": "Trickery Domain",
+      "shortName": "Trickery",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 62
+    },
+    {
+      "id": "cleric-trickery-domain",
+      "name": "Trickery Domain",
+      "shortName": "Trickery",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-war-domain",
+      "name": "War Domain",
+      "shortName": "War",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 63
+    },
+    {
+      "id": "cleric-war-domain",
+      "name": "War Domain",
+      "shortName": "War",
+      "className": "Cleric",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "cleric-death-domain",
+      "name": "Death Domain",
+      "shortName": "Death",
+      "className": "Cleric",
+      "source": "DMG",
+      "page": 96
+    },
+    {
+      "id": "cleric-death-domain",
+      "name": "Death Domain",
+      "shortName": "Death",
+      "className": "Cleric",
+      "source": "DMG",
+      "page": 0
+    },
+    {
+      "id": "cleric-arcana-domain",
+      "name": "Arcana Domain",
+      "shortName": "Arcana",
+      "className": "Cleric",
+      "source": "SCAG",
+      "page": 125
+    },
+    {
+      "id": "cleric-arcana-domain",
+      "name": "Arcana Domain",
+      "shortName": "Arcana",
+      "className": "Cleric",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "cleric-ambition-domain-psa",
+      "name": "Ambition Domain (PSA)",
+      "shortName": "Ambition (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 27
+    },
+    {
+      "id": "cleric-ambition-domain-psa",
+      "name": "Ambition Domain (PSA)",
+      "shortName": "Ambition (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 0
+    },
+    {
+      "id": "cleric-knowledge-domain-psa",
+      "name": "Knowledge Domain (PSA)",
+      "shortName": "Knowledge (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 25
+    },
+    {
+      "id": "cleric-knowledge-domain-psa",
+      "name": "Knowledge Domain (PSA)",
+      "shortName": "Knowledge (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 0
+    },
+    {
+      "id": "cleric-solidarity-domain-psa",
+      "name": "Solidarity Domain (PSA)",
+      "shortName": "Solidarity (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 24
+    },
+    {
+      "id": "cleric-solidarity-domain-psa",
+      "name": "Solidarity Domain (PSA)",
+      "shortName": "Solidarity (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 0
+    },
+    {
+      "id": "cleric-strength-domain-psa",
+      "name": "Strength Domain (PSA)",
+      "shortName": "Strength (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 26
+    },
+    {
+      "id": "cleric-strength-domain-psa",
+      "name": "Strength Domain (PSA)",
+      "shortName": "Strength (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 0
+    },
+    {
+      "id": "cleric-zeal-domain-psa",
+      "name": "Zeal Domain (PSA)",
+      "shortName": "Zeal (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 28
+    },
+    {
+      "id": "cleric-zeal-domain-psa",
+      "name": "Zeal Domain (PSA)",
+      "shortName": "Zeal (PSA)",
+      "className": "Cleric",
+      "source": "PSA",
+      "page": 0
+    },
+    {
+      "id": "cleric-forge-domain",
+      "name": "Forge Domain",
+      "shortName": "Forge",
+      "className": "Cleric",
+      "source": "XGE",
+      "page": 18
+    },
+    {
+      "id": "cleric-forge-domain",
+      "name": "Forge Domain",
+      "shortName": "Forge",
+      "className": "Cleric",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "cleric-grave-domain",
+      "name": "Grave Domain",
+      "shortName": "Grave",
+      "className": "Cleric",
+      "source": "XGE",
+      "page": 19
+    },
+    {
+      "id": "cleric-grave-domain",
+      "name": "Grave Domain",
+      "shortName": "Grave",
+      "className": "Cleric",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "cleric-order-domain",
+      "name": "Order Domain",
+      "shortName": "Order",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 31
+    },
+    {
+      "id": "cleric-order-domain",
+      "name": "Order Domain",
+      "shortName": "Order",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "cleric-peace-domain",
+      "name": "Peace Domain",
+      "shortName": "Peace",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 32
+    },
+    {
+      "id": "cleric-peace-domain",
+      "name": "Peace Domain",
+      "shortName": "Peace",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "cleric-twilight-domain",
+      "name": "Twilight Domain",
+      "shortName": "Twilight",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 34
+    },
+    {
+      "id": "cleric-twilight-domain",
+      "name": "Twilight Domain",
+      "shortName": "Twilight",
+      "className": "Cleric",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "cleric-life-domain",
+      "name": "Life Domain",
+      "shortName": "Life",
+      "className": "Cleric",
+      "source": "XPHB",
+      "page": 73
+    },
+    {
+      "id": "cleric-light-domain",
+      "name": "Light Domain",
+      "shortName": "Light",
+      "className": "Cleric",
+      "source": "XPHB",
+      "page": 74
+    },
+    {
+      "id": "cleric-trickery-domain",
+      "name": "Trickery Domain",
+      "shortName": "Trickery",
+      "className": "Cleric",
+      "source": "XPHB",
+      "page": 75
+    },
+    {
+      "id": "cleric-war-domain",
+      "name": "War Domain",
+      "shortName": "War",
+      "className": "Cleric",
+      "source": "XPHB",
+      "page": 76
+    },
+    {
+      "id": "cleric-knowledge-domain",
+      "name": "Knowledge Domain",
+      "shortName": "Knowledge",
+      "className": "Cleric",
+      "source": "FRHoF",
+      "page": 18
+    },
+    {
+      "id": "druid-circle-of-the-land",
+      "name": "Circle of the Land",
+      "shortName": "Land",
+      "className": "Druid",
+      "source": "PHB",
+      "page": 68
+    },
+    {
+      "id": "druid-circle-of-the-land",
+      "name": "Circle of the Land",
+      "shortName": "Land",
+      "className": "Druid",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-the-moon",
+      "name": "Circle of the Moon",
+      "shortName": "Moon",
+      "className": "Druid",
+      "source": "PHB",
+      "page": 69
+    },
+    {
+      "id": "druid-circle-of-the-moon",
+      "name": "Circle of the Moon",
+      "shortName": "Moon",
+      "className": "Druid",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-dreams",
+      "name": "Circle of Dreams",
+      "shortName": "Dreams",
+      "className": "Druid",
+      "source": "XGE",
+      "page": 22
+    },
+    {
+      "id": "druid-circle-of-dreams",
+      "name": "Circle of Dreams",
+      "shortName": "Dreams",
+      "className": "Druid",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-the-shepherd",
+      "name": "Circle of the Shepherd",
+      "shortName": "Shepherd",
+      "className": "Druid",
+      "source": "XGE",
+      "page": 23
+    },
+    {
+      "id": "druid-circle-of-the-shepherd",
+      "name": "Circle of the Shepherd",
+      "shortName": "Shepherd",
+      "className": "Druid",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-spores",
+      "name": "Circle of Spores",
+      "shortName": "Spores",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 36
+    },
+    {
+      "id": "druid-circle-of-spores",
+      "name": "Circle of Spores",
+      "shortName": "Spores",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-stars",
+      "name": "Circle of Stars",
+      "shortName": "Stars",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 38
+    },
+    {
+      "id": "druid-circle-of-stars",
+      "name": "Circle of Stars",
+      "shortName": "Stars",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-wildfire",
+      "name": "Circle of Wildfire",
+      "shortName": "Wildfire",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 39
+    },
+    {
+      "id": "druid-circle-of-wildfire",
+      "name": "Circle of Wildfire",
+      "shortName": "Wildfire",
+      "className": "Druid",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "druid-circle-of-the-land",
+      "name": "Circle of the Land",
+      "shortName": "Land",
+      "className": "Druid",
+      "source": "XPHB",
+      "page": 84
+    },
+    {
+      "id": "druid-circle-of-the-moon",
+      "name": "Circle of the Moon",
+      "shortName": "Moon",
+      "className": "Druid",
+      "source": "XPHB",
+      "page": 86
+    },
+    {
+      "id": "druid-circle-of-the-sea",
+      "name": "Circle of the Sea",
+      "shortName": "Sea",
+      "className": "Druid",
+      "source": "XPHB",
+      "page": 87
+    },
+    {
+      "id": "druid-circle-of-the-stars",
+      "name": "Circle of the Stars",
+      "shortName": "Stars",
+      "className": "Druid",
+      "source": "XPHB",
+      "page": 88
+    },
+    {
+      "id": "fighter-battle-master",
+      "name": "Battle Master",
+      "shortName": "Battle Master",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 73
+    },
+    {
+      "id": "fighter-battle-master",
+      "name": "Battle Master",
+      "shortName": "Battle Master",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "fighter-champion",
+      "name": "Champion",
+      "shortName": "Champion",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 72
+    },
+    {
+      "id": "fighter-champion",
+      "name": "Champion",
+      "shortName": "Champion",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "fighter-eldritch-knight",
+      "name": "Eldritch Knight",
+      "shortName": "Eldritch Knight",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 74
+    },
+    {
+      "id": "fighter-eldritch-knight",
+      "name": "Eldritch Knight",
+      "shortName": "Eldritch Knight",
+      "className": "Fighter",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "fighter-purple-dragon-knight-banneret",
+      "name": "Purple Dragon Knight (Banneret)",
+      "shortName": "Purple Dragon Knight (Banneret)",
+      "className": "Fighter",
+      "source": "SCAG",
+      "page": 128
+    },
+    {
+      "id": "fighter-purple-dragon-knight-banneret",
+      "name": "Purple Dragon Knight (Banneret)",
+      "shortName": "Purple Dragon Knight (Banneret)",
+      "className": "Fighter",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "fighter-arcane-archer",
+      "name": "Arcane Archer",
+      "shortName": "Arcane Archer",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 28
+    },
+    {
+      "id": "fighter-arcane-archer",
+      "name": "Arcane Archer",
+      "shortName": "Arcane Archer",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "fighter-cavalier",
+      "name": "Cavalier",
+      "shortName": "Cavalier",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 30
+    },
+    {
+      "id": "fighter-cavalier",
+      "name": "Cavalier",
+      "shortName": "Cavalier",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "fighter-samurai",
+      "name": "Samurai",
+      "shortName": "Samurai",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 31
+    },
+    {
+      "id": "fighter-samurai",
+      "name": "Samurai",
+      "shortName": "Samurai",
+      "className": "Fighter",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "fighter-echo-knight",
+      "name": "Echo Knight",
+      "shortName": "Echo Knight",
+      "className": "Fighter",
+      "source": "EGW",
+      "page": 183
+    },
+    {
+      "id": "fighter-echo-knight",
+      "name": "Echo Knight",
+      "shortName": "Echo Knight",
+      "className": "Fighter",
+      "source": "EGW",
+      "page": 0
+    },
+    {
+      "id": "fighter-psi-warrior",
+      "name": "Psi Warrior",
+      "shortName": "Psi Warrior",
+      "className": "Fighter",
+      "source": "TCE",
+      "page": 42
+    },
+    {
+      "id": "fighter-psi-warrior",
+      "name": "Psi Warrior",
+      "shortName": "Psi Warrior",
+      "className": "Fighter",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "fighter-rune-knight",
+      "name": "Rune Knight",
+      "shortName": "Rune Knight",
+      "className": "Fighter",
+      "source": "TCE",
+      "page": 44
+    },
+    {
+      "id": "fighter-rune-knight",
+      "name": "Rune Knight",
+      "shortName": "Rune Knight",
+      "className": "Fighter",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "fighter-battle-master",
+      "name": "Battle Master",
+      "shortName": "Battle Master",
+      "className": "Fighter",
+      "source": "XPHB",
+      "page": 93
+    },
+    {
+      "id": "fighter-champion",
+      "name": "Champion",
+      "shortName": "Champion",
+      "className": "Fighter",
+      "source": "XPHB",
+      "page": 96
+    },
+    {
+      "id": "fighter-eldritch-knight",
+      "name": "Eldritch Knight",
+      "shortName": "Eldritch Knight",
+      "className": "Fighter",
+      "source": "XPHB",
+      "page": 96
+    },
+    {
+      "id": "fighter-psi-warrior",
+      "name": "Psi Warrior",
+      "shortName": "Psi Warrior",
+      "className": "Fighter",
+      "source": "XPHB",
+      "page": 98
+    },
+    {
+      "id": "fighter-banneret",
+      "name": "Banneret",
+      "shortName": "Banneret",
+      "className": "Fighter",
+      "source": "FRHoF",
+      "page": 19
+    },
+    {
+      "id": "monk-way-of-shadow",
+      "name": "Way of Shadow",
+      "shortName": "Shadow",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 80
+    },
+    {
+      "id": "monk-way-of-shadow",
+      "name": "Way of Shadow",
+      "shortName": "Shadow",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-four-elements",
+      "name": "Way of the Four Elements",
+      "shortName": "Four Elements",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 80
+    },
+    {
+      "id": "monk-way-of-the-four-elements",
+      "name": "Way of the Four Elements",
+      "shortName": "Four Elements",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-open-hand",
+      "name": "Way of the Open Hand",
+      "shortName": "Open Hand",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 79
+    },
+    {
+      "id": "monk-way-of-the-open-hand",
+      "name": "Way of the Open Hand",
+      "shortName": "Open Hand",
+      "className": "Monk",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-long-death",
+      "name": "Way of the Long Death",
+      "shortName": "Long Death",
+      "className": "Monk",
+      "source": "SCAG",
+      "page": 130
+    },
+    {
+      "id": "monk-way-of-the-long-death",
+      "name": "Way of the Long Death",
+      "shortName": "Long Death",
+      "className": "Monk",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-drunken-master",
+      "name": "Way of the Drunken Master",
+      "shortName": "Drunken Master",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 33
+    },
+    {
+      "id": "monk-way-of-the-drunken-master",
+      "name": "Way of the Drunken Master",
+      "shortName": "Drunken Master",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-kensei",
+      "name": "Way of the Kensei",
+      "shortName": "Kensei",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 34
+    },
+    {
+      "id": "monk-way-of-the-kensei",
+      "name": "Way of the Kensei",
+      "shortName": "Kensei",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-sun-soul",
+      "name": "Way of the Sun Soul",
+      "shortName": "Sun Soul",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 35
+    },
+    {
+      "id": "monk-way-of-the-sun-soul",
+      "name": "Way of the Sun Soul",
+      "shortName": "Sun Soul",
+      "className": "Monk",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-mercy",
+      "name": "Way of Mercy",
+      "shortName": "Mercy",
+      "className": "Monk",
+      "source": "TCE",
+      "page": 49
+    },
+    {
+      "id": "monk-way-of-mercy",
+      "name": "Way of Mercy",
+      "shortName": "Mercy",
+      "className": "Monk",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-astral-self",
+      "name": "Way of the Astral Self",
+      "shortName": "Astral Self",
+      "className": "Monk",
+      "source": "TCE",
+      "page": 50
+    },
+    {
+      "id": "monk-way-of-the-astral-self",
+      "name": "Way of the Astral Self",
+      "shortName": "Astral Self",
+      "className": "Monk",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "monk-way-of-the-ascendant-dragon",
+      "name": "Way of the Ascendant Dragon",
+      "shortName": "Ascendant Dragon",
+      "className": "Monk",
+      "source": "FTD",
+      "page": 13
+    },
+    {
+      "id": "monk-way-of-the-ascendant-dragon",
+      "name": "Way of the Ascendant Dragon",
+      "shortName": "Ascendant Dragon",
+      "className": "Monk",
+      "source": "FTD",
+      "page": 0
+    },
+    {
+      "id": "monk-warrior-of-mercy",
+      "name": "Warrior of Mercy",
+      "shortName": "Mercy",
+      "className": "Monk",
+      "source": "XPHB",
+      "page": 104
+    },
+    {
+      "id": "monk-warrior-of-shadow",
+      "name": "Warrior of Shadow",
+      "shortName": "Shadow",
+      "className": "Monk",
+      "source": "XPHB",
+      "page": 105
+    },
+    {
+      "id": "monk-warrior-of-the-elements",
+      "name": "Warrior of the Elements",
+      "shortName": "Elements",
+      "className": "Monk",
+      "source": "XPHB",
+      "page": 106
+    },
+    {
+      "id": "monk-warrior-of-the-open-hand",
+      "name": "Warrior of the Open Hand",
+      "shortName": "Open Hand",
+      "className": "Monk",
+      "source": "XPHB",
+      "page": 107
+    },
+    {
+      "id": "paladin-oath-of-devotion",
+      "name": "Oath of Devotion",
+      "shortName": "Devotion",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 85
+    },
+    {
+      "id": "paladin-oath-of-devotion",
+      "name": "Oath of Devotion",
+      "shortName": "Devotion",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-the-ancients",
+      "name": "Oath of the Ancients",
+      "shortName": "Ancients",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 86
+    },
+    {
+      "id": "paladin-oath-of-the-ancients",
+      "name": "Oath of the Ancients",
+      "shortName": "Ancients",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-vengeance",
+      "name": "Oath of Vengeance",
+      "shortName": "Vengeance",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 87
+    },
+    {
+      "id": "paladin-oath-of-vengeance",
+      "name": "Oath of Vengeance",
+      "shortName": "Vengeance",
+      "className": "Paladin",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "paladin-oathbreaker",
+      "name": "Oathbreaker",
+      "shortName": "Oathbreaker",
+      "className": "Paladin",
+      "source": "DMG",
+      "page": 97
+    },
+    {
+      "id": "paladin-oathbreaker",
+      "name": "Oathbreaker",
+      "shortName": "Oathbreaker",
+      "className": "Paladin",
+      "source": "DMG",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-the-crown",
+      "name": "Oath of the Crown",
+      "shortName": "Crown",
+      "className": "Paladin",
+      "source": "SCAG",
+      "page": 132
+    },
+    {
+      "id": "paladin-oath-of-the-crown",
+      "name": "Oath of the Crown",
+      "shortName": "Crown",
+      "className": "Paladin",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-conquest",
+      "name": "Oath of Conquest",
+      "shortName": "Conquest",
+      "className": "Paladin",
+      "source": "XGE",
+      "page": 37
+    },
+    {
+      "id": "paladin-oath-of-conquest",
+      "name": "Oath of Conquest",
+      "shortName": "Conquest",
+      "className": "Paladin",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-redemption",
+      "name": "Oath of Redemption",
+      "shortName": "Redemption",
+      "className": "Paladin",
+      "source": "XGE",
+      "page": 38
+    },
+    {
+      "id": "paladin-oath-of-redemption",
+      "name": "Oath of Redemption",
+      "shortName": "Redemption",
+      "className": "Paladin",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-glory",
+      "name": "Oath of Glory",
+      "shortName": "Glory",
+      "className": "Paladin",
+      "source": "TCE",
+      "page": 53
+    },
+    {
+      "id": "paladin-oath-of-glory",
+      "name": "Oath of Glory",
+      "shortName": "Glory",
+      "className": "Paladin",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-the-watchers",
+      "name": "Oath of the Watchers",
+      "shortName": "Watchers",
+      "className": "Paladin",
+      "source": "TCE",
+      "page": 54
+    },
+    {
+      "id": "paladin-oath-of-the-watchers",
+      "name": "Oath of the Watchers",
+      "shortName": "Watchers",
+      "className": "Paladin",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "paladin-oath-of-devotion",
+      "name": "Oath of Devotion",
+      "shortName": "Devotion",
+      "className": "Paladin",
+      "source": "XPHB",
+      "page": 113
+    },
+    {
+      "id": "paladin-oath-of-glory",
+      "name": "Oath of Glory",
+      "shortName": "Glory",
+      "className": "Paladin",
+      "source": "XPHB",
+      "page": 114
+    },
+    {
+      "id": "paladin-oath-of-the-ancients",
+      "name": "Oath of the Ancients",
+      "shortName": "Ancients",
+      "className": "Paladin",
+      "source": "XPHB",
+      "page": 115
+    },
+    {
+      "id": "paladin-oath-of-vengeance",
+      "name": "Oath of Vengeance",
+      "shortName": "Vengeance",
+      "className": "Paladin",
+      "source": "XPHB",
+      "page": 116
+    },
+    {
+      "id": "paladin-oath-of-the-noble-genies",
+      "name": "Oath of the Noble Genies",
+      "shortName": "Noble Genies",
+      "className": "Paladin",
+      "source": "FRHoF",
+      "page": 20
+    },
+    {
+      "id": "ranger-beast-master",
+      "name": "Beast Master",
+      "shortName": "Beast Master",
+      "className": "Ranger",
+      "source": "PHB",
+      "page": 93
+    },
+    {
+      "id": "ranger-beast-master",
+      "name": "Beast Master",
+      "shortName": "Beast Master",
+      "className": "Ranger",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "ranger-hunter",
+      "name": "Hunter",
+      "shortName": "Hunter",
+      "className": "Ranger",
+      "source": "PHB",
+      "page": 93
+    },
+    {
+      "id": "ranger-hunter",
+      "name": "Hunter",
+      "shortName": "Hunter",
+      "className": "Ranger",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "ranger-gloom-stalker",
+      "name": "Gloom Stalker",
+      "shortName": "Gloom Stalker",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 41
+    },
+    {
+      "id": "ranger-gloom-stalker",
+      "name": "Gloom Stalker",
+      "shortName": "Gloom Stalker",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "ranger-horizon-walker",
+      "name": "Horizon Walker",
+      "shortName": "Horizon Walker",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 42
+    },
+    {
+      "id": "ranger-horizon-walker",
+      "name": "Horizon Walker",
+      "shortName": "Horizon Walker",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "ranger-monster-slayer",
+      "name": "Monster Slayer",
+      "shortName": "Monster Slayer",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 43
+    },
+    {
+      "id": "ranger-monster-slayer",
+      "name": "Monster Slayer",
+      "shortName": "Monster Slayer",
+      "className": "Ranger",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "ranger-fey-wanderer",
+      "name": "Fey Wanderer",
+      "shortName": "Fey Wanderer",
+      "className": "Ranger",
+      "source": "TCE",
+      "page": 58
+    },
+    {
+      "id": "ranger-fey-wanderer",
+      "name": "Fey Wanderer",
+      "shortName": "Fey Wanderer",
+      "className": "Ranger",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "ranger-swarmkeeper",
+      "name": "Swarmkeeper",
+      "shortName": "Swarmkeeper",
+      "className": "Ranger",
+      "source": "TCE",
+      "page": 59
+    },
+    {
+      "id": "ranger-swarmkeeper",
+      "name": "Swarmkeeper",
+      "shortName": "Swarmkeeper",
+      "className": "Ranger",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "ranger-drakewarden",
+      "name": "Drakewarden",
+      "shortName": "Drakewarden",
+      "className": "Ranger",
+      "source": "FTD",
+      "page": 15
+    },
+    {
+      "id": "ranger-drakewarden",
+      "name": "Drakewarden",
+      "shortName": "Drakewarden",
+      "className": "Ranger",
+      "source": "FTD",
+      "page": 0
+    },
+    {
+      "id": "ranger-beast-master",
+      "name": "Beast Master",
+      "shortName": "Beast Master",
+      "className": "Ranger",
+      "source": "XPHB",
+      "page": 123
+    },
+    {
+      "id": "ranger-fey-wanderer",
+      "name": "Fey Wanderer",
+      "shortName": "Fey Wanderer",
+      "className": "Ranger",
+      "source": "XPHB",
+      "page": 124
+    },
+    {
+      "id": "ranger-gloom-stalker",
+      "name": "Gloom Stalker",
+      "shortName": "Gloom Stalker",
+      "className": "Ranger",
+      "source": "XPHB",
+      "page": 125
+    },
+    {
+      "id": "ranger-hunter",
+      "name": "Hunter",
+      "shortName": "Hunter",
+      "className": "Ranger",
+      "source": "XPHB",
+      "page": 127
+    },
+    {
+      "id": "ranger-winter-walker",
+      "name": "Winter Walker",
+      "shortName": "Winter Walker",
+      "className": "Ranger",
+      "source": "FRHoF",
+      "page": 21
+    },
+    {
+      "id": "rogue-arcane-trickster",
+      "name": "Arcane Trickster",
+      "shortName": "Arcane Trickster",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 97
+    },
+    {
+      "id": "rogue-arcane-trickster",
+      "name": "Arcane Trickster",
+      "shortName": "Arcane Trickster",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "rogue-assassin",
+      "name": "Assassin",
+      "shortName": "Assassin",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 97
+    },
+    {
+      "id": "rogue-assassin",
+      "name": "Assassin",
+      "shortName": "Assassin",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "rogue-thief",
+      "name": "Thief",
+      "shortName": "Thief",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 97
+    },
+    {
+      "id": "rogue-thief",
+      "name": "Thief",
+      "shortName": "Thief",
+      "className": "Rogue",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "rogue-inquisitive",
+      "name": "Inquisitive",
+      "shortName": "Inquisitive",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 45
+    },
+    {
+      "id": "rogue-inquisitive",
+      "name": "Inquisitive",
+      "shortName": "Inquisitive",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "rogue-mastermind",
+      "name": "Mastermind",
+      "shortName": "Mastermind",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 46
+    },
+    {
+      "id": "rogue-mastermind",
+      "name": "Mastermind",
+      "shortName": "Mastermind",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "rogue-scout",
+      "name": "Scout",
+      "shortName": "Scout",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 47
+    },
+    {
+      "id": "rogue-scout",
+      "name": "Scout",
+      "shortName": "Scout",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "rogue-swashbuckler",
+      "name": "Swashbuckler",
+      "shortName": "Swashbuckler",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 48
+    },
+    {
+      "id": "rogue-swashbuckler",
+      "name": "Swashbuckler",
+      "shortName": "Swashbuckler",
+      "className": "Rogue",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "rogue-phantom",
+      "name": "Phantom",
+      "shortName": "Phantom",
+      "className": "Rogue",
+      "source": "TCE",
+      "page": 62
+    },
+    {
+      "id": "rogue-phantom",
+      "name": "Phantom",
+      "shortName": "Phantom",
+      "className": "Rogue",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "rogue-soulknife",
+      "name": "Soulknife",
+      "shortName": "Soulknife",
+      "className": "Rogue",
+      "source": "TCE",
+      "page": 63
+    },
+    {
+      "id": "rogue-soulknife",
+      "name": "Soulknife",
+      "shortName": "Soulknife",
+      "className": "Rogue",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "rogue-arcane-trickster",
+      "name": "Arcane Trickster",
+      "shortName": "Arcane Trickster",
+      "className": "Rogue",
+      "source": "XPHB",
+      "page": 132
+    },
+    {
+      "id": "rogue-assassin",
+      "name": "Assassin",
+      "shortName": "Assassin",
+      "className": "Rogue",
+      "source": "XPHB",
+      "page": 134
+    },
+    {
+      "id": "rogue-soulknife",
+      "name": "Soulknife",
+      "shortName": "Soulknife",
+      "className": "Rogue",
+      "source": "XPHB",
+      "page": 135
+    },
+    {
+      "id": "rogue-thief",
+      "name": "Thief",
+      "shortName": "Thief",
+      "className": "Rogue",
+      "source": "XPHB",
+      "page": 137
+    },
+    {
+      "id": "rogue-scion-of-the-three",
+      "name": "Scion of the Three",
+      "shortName": "Scion of the Three",
+      "className": "Rogue",
+      "source": "FRHoF",
+      "page": 23
+    },
+    {
+      "id": "sorcerer-draconic-bloodline",
+      "name": "Draconic Bloodline",
+      "shortName": "Draconic",
+      "className": "Sorcerer",
+      "source": "PHB",
+      "page": 102
+    },
+    {
+      "id": "sorcerer-draconic-bloodline",
+      "name": "Draconic Bloodline",
+      "shortName": "Draconic",
+      "className": "Sorcerer",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-wild-magic",
+      "name": "Wild Magic",
+      "shortName": "Wild",
+      "className": "Sorcerer",
+      "source": "PHB",
+      "page": 103
+    },
+    {
+      "id": "sorcerer-wild-magic",
+      "name": "Wild Magic",
+      "shortName": "Wild",
+      "className": "Sorcerer",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-pyromancer-psk",
+      "name": "Pyromancer (PSK)",
+      "shortName": "Pyromancer (PSK)",
+      "className": "Sorcerer",
+      "source": "PSK",
+      "page": 9
+    },
+    {
+      "id": "sorcerer-pyromancer-psk",
+      "name": "Pyromancer (PSK)",
+      "shortName": "Pyromancer (PSK)",
+      "className": "Sorcerer",
+      "source": "PSK",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-divine-soul",
+      "name": "Divine Soul",
+      "shortName": "Divine Soul",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 50
+    },
+    {
+      "id": "sorcerer-divine-soul",
+      "name": "Divine Soul",
+      "shortName": "Divine Soul",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-shadow-magic",
+      "name": "Shadow Magic",
+      "shortName": "Shadow",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 50
+    },
+    {
+      "id": "sorcerer-shadow-magic",
+      "name": "Shadow Magic",
+      "shortName": "Shadow",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-storm-sorcery",
+      "name": "Storm Sorcery",
+      "shortName": "Storm",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 51
+    },
+    {
+      "id": "sorcerer-storm-sorcery",
+      "name": "Storm Sorcery",
+      "shortName": "Storm",
+      "className": "Sorcerer",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-aberrant-mind",
+      "name": "Aberrant Mind",
+      "shortName": "Aberrant Mind",
+      "className": "Sorcerer",
+      "source": "TCE",
+      "page": 66
+    },
+    {
+      "id": "sorcerer-aberrant-mind",
+      "name": "Aberrant Mind",
+      "shortName": "Aberrant Mind",
+      "className": "Sorcerer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-clockwork-soul",
+      "name": "Clockwork Soul",
+      "shortName": "Clockwork Soul",
+      "className": "Sorcerer",
+      "source": "TCE",
+      "page": 68
+    },
+    {
+      "id": "sorcerer-clockwork-soul",
+      "name": "Clockwork Soul",
+      "shortName": "Clockwork Soul",
+      "className": "Sorcerer",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-lunar-sorcery",
+      "name": "Lunar Sorcery",
+      "shortName": "Lunar",
+      "className": "Sorcerer",
+      "source": "DSotDQ",
+      "page": 34
+    },
+    {
+      "id": "sorcerer-lunar-sorcery",
+      "name": "Lunar Sorcery",
+      "shortName": "Lunar",
+      "className": "Sorcerer",
+      "source": "DSotDQ",
+      "page": 0
+    },
+    {
+      "id": "sorcerer-aberrant-sorcery",
+      "name": "Aberrant Sorcery",
+      "shortName": "Aberrant",
+      "className": "Sorcerer",
+      "source": "XPHB",
+      "page": 145
+    },
+    {
+      "id": "sorcerer-clockwork-sorcery",
+      "name": "Clockwork Sorcery",
+      "shortName": "Clockwork",
+      "className": "Sorcerer",
+      "source": "XPHB",
+      "page": 146
+    },
+    {
+      "id": "sorcerer-draconic-sorcery",
+      "name": "Draconic Sorcery",
+      "shortName": "Draconic",
+      "className": "Sorcerer",
+      "source": "XPHB",
+      "page": 148
+    },
+    {
+      "id": "sorcerer-wild-magic-sorcery",
+      "name": "Wild Magic Sorcery",
+      "shortName": "Wild Magic",
+      "className": "Sorcerer",
+      "source": "XPHB",
+      "page": 149
+    },
+    {
+      "id": "sorcerer-spellfire-sorcery",
+      "name": "Spellfire Sorcery",
+      "shortName": "Spellfire",
+      "className": "Sorcerer",
+      "source": "FRHoF",
+      "page": 24
+    },
+    {
+      "id": "warlock-the-archfey",
+      "name": "The Archfey",
+      "shortName": "Archfey",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 108
+    },
+    {
+      "id": "warlock-the-archfey",
+      "name": "The Archfey",
+      "shortName": "Archfey",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-fiend",
+      "name": "The Fiend",
+      "shortName": "Fiend",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 109
+    },
+    {
+      "id": "warlock-the-fiend",
+      "name": "The Fiend",
+      "shortName": "Fiend",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-great-old-one",
+      "name": "The Great Old One",
+      "shortName": "Great Old One",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 109
+    },
+    {
+      "id": "warlock-the-great-old-one",
+      "name": "The Great Old One",
+      "shortName": "Great Old One",
+      "className": "Warlock",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-undying",
+      "name": "The Undying",
+      "shortName": "Undying",
+      "className": "Warlock",
+      "source": "SCAG",
+      "page": 139
+    },
+    {
+      "id": "warlock-the-undying",
+      "name": "The Undying",
+      "shortName": "Undying",
+      "className": "Warlock",
+      "source": "SCAG",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-celestial",
+      "name": "The Celestial",
+      "shortName": "Celestial",
+      "className": "Warlock",
+      "source": "XGE",
+      "page": 54
+    },
+    {
+      "id": "warlock-the-celestial",
+      "name": "The Celestial",
+      "shortName": "Celestial",
+      "className": "Warlock",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-hexblade",
+      "name": "The Hexblade",
+      "shortName": "Hexblade",
+      "className": "Warlock",
+      "source": "XGE",
+      "page": 55
+    },
+    {
+      "id": "warlock-the-hexblade",
+      "name": "The Hexblade",
+      "shortName": "Hexblade",
+      "className": "Warlock",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-fathomless",
+      "name": "The Fathomless",
+      "shortName": "Fathomless",
+      "className": "Warlock",
+      "source": "TCE",
+      "page": 72
+    },
+    {
+      "id": "warlock-the-fathomless",
+      "name": "The Fathomless",
+      "shortName": "Fathomless",
+      "className": "Warlock",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-genie",
+      "name": "The Genie",
+      "shortName": "Genie",
+      "className": "Warlock",
+      "source": "TCE",
+      "page": 73
+    },
+    {
+      "id": "warlock-the-genie",
+      "name": "The Genie",
+      "shortName": "Genie",
+      "className": "Warlock",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "warlock-the-undead",
+      "name": "The Undead",
+      "shortName": "Undead",
+      "className": "Warlock",
+      "source": "VRGR",
+      "page": 30
+    },
+    {
+      "id": "warlock-the-undead",
+      "name": "The Undead",
+      "shortName": "Undead",
+      "className": "Warlock",
+      "source": "VRGR",
+      "page": 0
+    },
+    {
+      "id": "warlock-archfey-patron",
+      "name": "Archfey Patron",
+      "shortName": "Archfey",
+      "className": "Warlock",
+      "source": "XPHB",
+      "page": 159
+    },
+    {
+      "id": "warlock-celestial-patron",
+      "name": "Celestial Patron",
+      "shortName": "Celestial",
+      "className": "Warlock",
+      "source": "XPHB",
+      "page": 160
+    },
+    {
+      "id": "warlock-fiend-patron",
+      "name": "Fiend Patron",
+      "shortName": "Fiend",
+      "className": "Warlock",
+      "source": "XPHB",
+      "page": 161
+    },
+    {
+      "id": "warlock-great-old-one-patron",
+      "name": "Great Old One Patron",
+      "shortName": "Great Old One",
+      "className": "Warlock",
+      "source": "XPHB",
+      "page": 162
+    },
+    {
+      "id": "wizard-school-of-abjuration",
+      "name": "School of Abjuration",
+      "shortName": "Abjuration",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 115
+    },
+    {
+      "id": "wizard-school-of-abjuration",
+      "name": "School of Abjuration",
+      "shortName": "Abjuration",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-conjuration",
+      "name": "School of Conjuration",
+      "shortName": "Conjuration",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 116
+    },
+    {
+      "id": "wizard-school-of-conjuration",
+      "name": "School of Conjuration",
+      "shortName": "Conjuration",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-divination",
+      "name": "School of Divination",
+      "shortName": "Divination",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 116
+    },
+    {
+      "id": "wizard-school-of-divination",
+      "name": "School of Divination",
+      "shortName": "Divination",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-enchantment",
+      "name": "School of Enchantment",
+      "shortName": "Enchantment",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 117
+    },
+    {
+      "id": "wizard-school-of-enchantment",
+      "name": "School of Enchantment",
+      "shortName": "Enchantment",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-evocation",
+      "name": "School of Evocation",
+      "shortName": "Evocation",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 117
+    },
+    {
+      "id": "wizard-school-of-evocation",
+      "name": "School of Evocation",
+      "shortName": "Evocation",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-illusion",
+      "name": "School of Illusion",
+      "shortName": "Illusion",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 118
+    },
+    {
+      "id": "wizard-school-of-illusion",
+      "name": "School of Illusion",
+      "shortName": "Illusion",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-necromancy",
+      "name": "School of Necromancy",
+      "shortName": "Necromancy",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 118
+    },
+    {
+      "id": "wizard-school-of-necromancy",
+      "name": "School of Necromancy",
+      "shortName": "Necromancy",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-school-of-transmutation",
+      "name": "School of Transmutation",
+      "shortName": "Transmutation",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 119
+    },
+    {
+      "id": "wizard-school-of-transmutation",
+      "name": "School of Transmutation",
+      "shortName": "Transmutation",
+      "className": "Wizard",
+      "source": "PHB",
+      "page": 0
+    },
+    {
+      "id": "wizard-war-magic",
+      "name": "War Magic",
+      "shortName": "War",
+      "className": "Wizard",
+      "source": "XGE",
+      "page": 59
+    },
+    {
+      "id": "wizard-war-magic",
+      "name": "War Magic",
+      "shortName": "War",
+      "className": "Wizard",
+      "source": "XGE",
+      "page": 0
+    },
+    {
+      "id": "wizard-chronurgy-magic",
+      "name": "Chronurgy Magic",
+      "shortName": "Chronurgy",
+      "className": "Wizard",
+      "source": "EGW",
+      "page": 184
+    },
+    {
+      "id": "wizard-chronurgy-magic",
+      "name": "Chronurgy Magic",
+      "shortName": "Chronurgy",
+      "className": "Wizard",
+      "source": "EGW",
+      "page": 0
+    },
+    {
+      "id": "wizard-graviturgy-magic",
+      "name": "Graviturgy Magic",
+      "shortName": "Graviturgy",
+      "className": "Wizard",
+      "source": "EGW",
+      "page": 185
+    },
+    {
+      "id": "wizard-graviturgy-magic",
+      "name": "Graviturgy Magic",
+      "shortName": "Graviturgy",
+      "className": "Wizard",
+      "source": "EGW",
+      "page": 0
+    },
+    {
+      "id": "wizard-bladesinging",
+      "name": "Bladesinging",
+      "shortName": "Bladesinging",
+      "className": "Wizard",
+      "source": "TCE",
+      "page": 76
+    },
+    {
+      "id": "wizard-bladesinging",
+      "name": "Bladesinging",
+      "shortName": "Bladesinging",
+      "className": "Wizard",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "wizard-order-of-scribes",
+      "name": "Order of Scribes",
+      "shortName": "Scribes",
+      "className": "Wizard",
+      "source": "TCE",
+      "page": 77
+    },
+    {
+      "id": "wizard-order-of-scribes",
+      "name": "Order of Scribes",
+      "shortName": "Scribes",
+      "className": "Wizard",
+      "source": "TCE",
+      "page": 0
+    },
+    {
+      "id": "wizard-abjurer",
+      "name": "Abjurer",
+      "shortName": "Abjurer",
+      "className": "Wizard",
+      "source": "XPHB",
+      "page": 172
+    },
+    {
+      "id": "wizard-diviner",
+      "name": "Diviner",
+      "shortName": "Diviner",
+      "className": "Wizard",
+      "source": "XPHB",
+      "page": 173
+    },
+    {
+      "id": "wizard-evoker",
+      "name": "Evoker",
+      "shortName": "Evoker",
+      "className": "Wizard",
+      "source": "XPHB",
+      "page": 174
+    },
+    {
+      "id": "wizard-illusionist",
+      "name": "Illusionist",
+      "shortName": "Illusionist",
+      "className": "Wizard",
+      "source": "XPHB",
+      "page": 175
+    },
+    {
+      "id": "wizard-bladesinger",
+      "name": "Bladesinger",
+      "shortName": "Bladesinger",
+      "className": "Wizard",
+      "source": "FRHoF",
+      "page": 26
+    }
+  ]
+}
