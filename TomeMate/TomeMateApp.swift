@@ -22,9 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct TomeMateApp: App {
 
     @StateObject private var authManager = AuthManager()
-
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @StateObject var authManager = AuthManager()
 
     let persistenceController = PersistenceController.shared
     
