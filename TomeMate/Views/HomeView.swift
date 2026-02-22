@@ -14,12 +14,22 @@ struct HomeView: View {
     @EnvironmentObject var authManager: AuthManager
     
     var body: some View {
-        Group {
-            if authManager.user != nil {
-                Text("Welcome user!")
-            } else {
-                LoginView()
-            }
+        
+        TabView {
+            SpellLookupView()
+                .tabItem {
+                    Label("Spell Lookup", systemImage: "book")
+                }
+            
+            BestiaryLookupView()
+                .tabItem {
+                    Label("Bestiary Lookup", systemImage: "person.fill")
+                }
+            
+            ItemLookupView()
+                .tabItem {
+                    Label("Item Lookup", systemImage: "calendar.badge.clock")
+                }
         }
     }
 }

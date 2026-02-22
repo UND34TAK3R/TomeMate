@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24512" systemVersion="25C56" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Ability" representedClassName="Ability" syncable="YES" codeGenerationType="class">
-        <attribute name="abilityId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="castTime" optional="YES" attributeType="String"/>
-        <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="isHomeBrew" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="range" optional="YES" attributeType="String"/>
-        <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="usesPerRest" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-    </entity>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24299" systemVersion="25A362" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bestiary" representedClassName="Bestiary" syncable="YES" codeGenerationType="class">
-        <attribute name="actions" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
+        <attribute name="actions" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
         <attribute name="alignment" optional="YES" attributeType="String"/>
-        <attribute name="armorClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="armor_class" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="bestiaryId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="cr" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="challenge_rating" optional="YES" attributeType="String"/>
+        <attribute name="condition_immunitites" optional="YES" attributeType="String"/>
+        <attribute name="damage_immunities" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
+        <attribute name="damage_resistances" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
+        <attribute name="damage_vulnerabilities" optional="YES" attributeType="String"/>
         <attribute name="habitat" optional="YES" attributeType="String"/>
-        <attribute name="hp" optional="YES" attributeType="String"/>
-        <attribute name="immunities" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
+        <attribute name="hit_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="initiative" optional="YES" attributeType="String"/>
         <attribute name="languages" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="reactions" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
-        <attribute name="resistances" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
+        <attribute name="reactions" optional="YES" attributeType="String" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
         <attribute name="senses" optional="YES" attributeType="String"/>
         <attribute name="size" optional="YES" attributeType="String"/>
         <attribute name="speed" optional="YES" attributeType="String"/>
@@ -39,7 +31,6 @@
         <attribute name="worldMap" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="WorldMap"/>
     </entity>
     <entity name="Character" representedClassName="Character" syncable="YES" codeGenerationType="class">
-        <attribute name="abilities" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Ability]"/>
         <attribute name="alignment" optional="YES" attributeType="String"/>
         <attribute name="armorClass" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="attunedItems" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Item]"/>
@@ -47,32 +38,26 @@
         <attribute name="campaign" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="Campaign"/>
         <attribute name="characterId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="charImg" optional="YES" attributeType="String"/>
-        <attribute name="classes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Classes]"/>
         <attribute name="experiencePoints" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="gold" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="hp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="initiative" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="inspiration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="items" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Item]"/>
         <attribute name="languages" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
         <attribute name="level" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="notes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Note]"/>
         <attribute name="passivePerception" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="proficiencyBonus" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="race" optional="YES" attributeType="String"/>
-        <attribute name="skillProficiencies" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
         <attribute name="speed" optional="YES" attributeType="String"/>
-        <attribute name="spells" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Spell]"/>
-        <attribute name="stats" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="Stats"/>
         <attribute name="subrace" optional="YES" attributeType="String"/>
-        <relationship name="classesRel" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Classes" inverseName="character" inverseEntity="Classes"/>
-        <relationship name="itemsRel" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="character" inverseEntity="Item"/>
-        <relationship name="notesRel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Note" inverseName="characters" inverseEntity="Note"/>
-        <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="character" inverseEntity="Player"/>
+        <relationship name="classes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Classes" inverseName="character" inverseEntity="Classes"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Item" inverseName="character" inverseEntity="Item"/>
+        <relationship name="notes" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Note" inverseName="characters" inverseEntity="Note"/>
+        <relationship name="player" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="characters" inverseEntity="Player"/>
         <relationship name="skillProf" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="SkillProficiencies" inverseName="characters" inverseEntity="SkillProficiencies"/>
-        <relationship name="spellsRel" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Spell" inverseName="character" inverseEntity="Spell"/>
-        <relationship name="statsRel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Stats" inverseName="characters" inverseEntity="Stats"/>
+        <relationship name="spells" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Spell" inverseName="character" inverseEntity="Spell"/>
+        <relationship name="stats" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Stats" inverseName="characters" inverseEntity="Stats"/>
     </entity>
     <entity name="Classes" representedClassName="Classes" syncable="YES" codeGenerationType="class">
         <attribute name="classId" optional="YES" attributeType="String"/>
@@ -81,7 +66,7 @@
         <attribute name="primaryAbility" optional="YES" attributeType="String"/>
         <attribute name="shortName" optional="YES" attributeType="String"/>
         <attribute name="subclass" optional="YES" attributeType="String"/>
-        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="classesRel" inverseEntity="Character"/>
+        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="classes" inverseEntity="Character"/>
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="bonusAc" optional="YES" attributeType="String"/>
@@ -90,6 +75,7 @@
         <attribute name="bonusWeapon" optional="YES" attributeType="String"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isHomebrew" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isMagic" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="rarity" optional="YES" attributeType="String"/>
@@ -97,7 +83,7 @@
         <attribute name="value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wondrous" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="itemsRel" inverseEntity="Character"/>
+        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="items" inverseEntity="Character"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -106,7 +92,7 @@
         <attribute name="noteId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="tags" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[String]"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="notesRel" inverseEntity="Character"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="notes" inverseEntity="Character"/>
     </entity>
     <entity name="Pin" representedClassName="Pin" syncable="YES" codeGenerationType="class">
         <attribute name="ascQuests" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Quest]"/>
@@ -119,13 +105,12 @@
         <attribute name="yCoordinate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Player" representedClassName="Player" syncable="YES" codeGenerationType="class">
-        <attribute name="characters" optional="YES" attributeType="Transformable" valueTransformerName="[Character]"/>
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastLoginAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="player" inverseEntity="Character"/>
+        <relationship name="characters" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="player" inverseEntity="Character"/>
     </entity>
     <entity name="Quest" representedClassName="Quest" syncable="YES" codeGenerationType="class">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -146,7 +131,6 @@
     </entity>
     <entity name="Spell" representedClassName="Spell" syncable="YES" codeGenerationType="class">
         <attribute name="castTime" optional="YES" attributeType="String"/>
-        <attribute name="classes" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName " customClassName="[Classes]"/>
         <attribute name="components" optional="YES" attributeType="String"/>
         <attribute name="condition_type" optional="YES" attributeType="String"/>
         <attribute name="damage_type" optional="YES" attributeType="String"/>
@@ -164,8 +148,8 @@
         <attribute name="saving_throw_type" optional="YES" attributeType="String"/>
         <attribute name="school" optional="YES" attributeType="String"/>
         <attribute name="spell_duration_type" optional="YES" attributeType="String"/>
-        <attribute name="spellId" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="spellsRel" inverseEntity="Character"/>
+        <attribute name="spellId" optional="YES" attributeType="String"/>
+        <relationship name="character" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="spells" inverseEntity="Character"/>
     </entity>
     <entity name="Stats" representedClassName="Stats" syncable="YES" codeGenerationType="class">
         <attribute name="charisma" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -174,7 +158,7 @@
         <attribute name="strength" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wisdom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="bestiary" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bestiary" inverseName="stat" inverseEntity="Bestiary"/>
-        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="statsRel" inverseEntity="Character"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="stats" inverseEntity="Character"/>
     </entity>
     <entity name="WorldMap" representedClassName="WorldMap" syncable="YES" codeGenerationType="class">
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

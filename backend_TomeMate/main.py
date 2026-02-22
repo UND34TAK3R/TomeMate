@@ -149,7 +149,7 @@ def map_bestiary(creature):
         "dexterity" : creature["dexterity"],
         "constitution": creature[ "constitution"],
         "intelligence": creature["intelligence"],
-        "widom": creature["wisdom"],
+        "wisdom": creature["wisdom"],
         "charisma": creature["charisma"],
         "damage_vulnerabilities": creature[ "damage_vulnerabilities"],
         "damage_resistances": creature["damage_resistances"],
@@ -174,6 +174,7 @@ def get_creature_by_id(creature_id: str):
 def get_creatures():
     results = mapped_bestiary
     return results
+
 
 
 ###### Items ###########
@@ -612,4 +613,5 @@ if __name__ == "__main__":
     print("\n=== Registered Routes ===")
     for route in app.routes:
         print(f"{route.methods} {route.path}")
+
     print("========================\n")
