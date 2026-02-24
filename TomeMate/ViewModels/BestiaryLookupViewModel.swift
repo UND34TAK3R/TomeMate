@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 
+// testing
+
 class BestiaryLookupViewModel: ObservableObject {
     
     @Published var creatures: [CreatureModel] = []
