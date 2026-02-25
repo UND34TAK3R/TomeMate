@@ -1,8 +1,10 @@
 from turtle import speed
-from fastapi import FastAPI, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
 import json
 import re
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 app = FastAPI()
 
@@ -149,7 +151,7 @@ def map_bestiary(creature):
         "dexterity" : creature["dexterity"],
         "constitution": creature[ "constitution"],
         "intelligence": creature["intelligence"],
-        "widom": creature["wisdom"],
+        "wisdom": creature["wisdom"],
         "charisma": creature["charisma"],
         "damage_vulnerabilities": creature[ "damage_vulnerabilities"],
         "damage_resistances": creature["damage_resistances"],
@@ -162,6 +164,26 @@ def map_bestiary(creature):
 
 mapped_bestiary = [map_bestiary(b) for b in raw_bestiary["creature"]]
 
+@app.get("/creatures")
+def get_creatures(
+    name: str = None,
+    type: str = None,
+    subtype: str = None,
+):
+    results = mapped_bestiary
+
+    if name is not None:
+        results = [b for b in results if b["name"] == name]
+
+    if type is not None:
+        results = [b for b in results if b ["type"] == type]
+
+    if subtype is not None:
+        results = [b for b in results if b ["subtype"] == subtype]
+
+    return results
+
+
 @app.get("/creatures/{creature_id}")
 def get_creature_by_id(creature_id: str):
     for creature in mapped_bestiary:
@@ -169,17 +191,7 @@ def get_creature_by_id(creature_id: str):
             return creature
     raise HTTPException(status_code=404, detail=f"Creature with id '{creature_id}' not found")
 
-
-@app.get("/creatures")
-def get_creatures():
-    results = mapped_bestiary
-    return results
-
-
 ###### Items ###########
-
-
-
 # Load items data
 with open("Data/items.json") as f:
     raw_items = json.load(f)
@@ -374,7 +386,7 @@ def extract_spells(additional_spells):
 def extract_traits(entries):
     SKIP_NAMES = {"age", "languages", "language", "alignment", "size"}
     traits = []
-    for entry in (entries or []):                      # guard: null entries
+    for entry in (entries or []):                      
         if not isinstance(entry, dict):
             continue
         name = entry.get("name", "")
@@ -406,22 +418,17 @@ def map_race(race):
             traits.append("Draconic Ancestry")
 
     languages = []
-    for item in (race.get("languageProficiencies") or []):  # guard: null
+    for item in (race.get("languageProficiencies") or []):
         if isinstance(item, dict):
             for lang, value in item.items():
                 if value is True:
                     languages.append(lang.capitalize())
+    if not languages:
+        languages.append("Common")
 
     speed = race.get("speed") or {}                     # guard: null speed
     if isinstance(speed, int):
         speed = {"walk": speed}
-
-    ability = {}
-    ability_list = race.get("ability") or []            # guard: null ability
-    if isinstance(ability_list, list) and ability_list:
-        ability = ability_list[0]
-
-    spells = extract_spells(race.get("additionalSpells"))
 
     return {
         "id": slugify(name),
@@ -429,8 +436,6 @@ def map_race(race):
         "languages": languages,
         "speed": speed,
         "traits": traits,
-        "spells": spells,
-        "ability": ability,
     }
 
 
@@ -471,11 +476,6 @@ def map_subrace(subrace):
             if isinstance(item, str):
                 traits.append(item)
 
-    ability = {}
-    ability_list = subrace.get("ability") or []                 # guard: null
-    if isinstance(ability_list, list) and ability_list:
-        ability = ability_list[0]
-
     spells = extract_spells(subrace.get("additionalSpells"))
 
     return {
@@ -485,7 +485,6 @@ def map_subrace(subrace):
         "languages": languages,
         "traits": traits,
         "spells": spells,
-        "ability": ability,
     }
 
 
@@ -606,6 +605,48 @@ def get_skill_by_id(skill_id: str):
 def get_skills():
     results = mapped_skill
     return results
+
+
+###### Backgrounds ########
+with open("Data/backgrounds.json") as b:
+    raw_background = json.load(b)
+
+def map_background(bg):
+    name = bg.get("name")
+    if not name:
+        return None
+    
+    raw_profs = bg.get("skillProficiencies", [{}])[0] if bg.get("skillProficiencies") else {}
+    
+    if "choose" in raw_profs:
+        skill_profs = []
+        skill_choice = {
+            "from": raw_profs["choose"]["from"],
+            "count": raw_profs["choose"].get("count", 1)
+        }
+    else:
+        skill_profs = list(raw_profs.keys())
+        skill_choice = None
+
+    return {
+        "id": slugify(bg["name"]),
+        "name": bg["name"],
+        "skillProficiencies": skill_profs,
+        "skillChoice": skill_choice
+    }
+
+mapped_backgrounds = [map_background(b) for b in raw_background["background"]]
+
+@app.get("/backgrounds/{background_id}")
+def get_background_by_id(background_id: str):
+    for bg in mapped_backgrounds:
+        if bg["id"] == background_id:
+            return bg
+    raise HTTPException(status_code=404, detail=f"Background with id '{background_id}' not found")
+
+@app.get("/backgrounds")
+def get_backgrounds():
+    return mapped_backgrounds
 
 # Add this at the very bottom
 if __name__ == "__main__":
