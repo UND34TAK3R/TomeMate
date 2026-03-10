@@ -28,11 +28,11 @@ struct TomeMateApp: App {
     
     var body: some Scene {
         let context = persistenceController.container.viewContext
-        let dateHolder = DateHolder(context)
+        let tomeMateHolder = TomeMateHolder(context)
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .environmentObject(dateHolder)
+                .environmentObject(tomeMateHolder)
                 .environmentObject(authManager)
         }
     }
