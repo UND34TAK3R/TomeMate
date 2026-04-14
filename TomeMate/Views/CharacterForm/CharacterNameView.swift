@@ -49,9 +49,9 @@ struct CharacterNameView: View {
             if formData.name.isEmpty{
                 isDisabled = true
             }
-            else{
-                isDisabled = false
-            }
+        }
+        .onChange(of: formData.name) { _, newValue in
+            isDisabled = newValue.isEmpty
         }
         .onDisappear{
             isNameFocused = false
