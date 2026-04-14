@@ -17,173 +17,202 @@ struct MultiClassView: View {
     @State private var sheetClass: ClassesModel? = nil
     @State private var showSheet: Bool = false
 
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
 
-    var canConfirm: Bool {
-        selectedClass != nil && selectedSubclass != nil
-    }
+    var canConfirm: Bool { selectedClass != nil && selectedSubclass != nil }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text("Select your New Class")
-                .font(.title2)
-                .bold()
-                .padding(.horizontal)
-                .padding(.top)
+        ZStack(alignment: .bottom) {
+            Color.tomeBg.ignoresSafeArea()
+            TomeParticlesView()
 
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(viewModel.classes) { classes in
-                        ClassCards(classes: classes, selectedClass: selectedClass)
-                            .onTapGesture {
-                                selectedClass = classes
-                                selectedSubclass = nil
-                                sheetClass = classes
-                                showSheet = true
-                            }
-                            .padding()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    VStack(spacing: 6) {
+                        Text("Multiclass")
+                            .font(.custom("Cinzel-Regular", size: 20))
+                            .foregroundStyle(Color.tomeParchment)
+                        DecorativeRuleView().padding(.horizontal, 60)
+                        Text("Select a new class to add")
+                            .font(.custom("IMFellEnglish-Regular", size: 12))
+                            .italic()
+                            .foregroundStyle(Color.tomeMuted)
                     }
-                }
-            }
+                    .padding(.vertical, 20)
 
-            // MARK: - Selected summary
-            if let cls = selectedClass {
-                VStack(spacing: 4) {
-                    Divider()
-                    HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(cls.name)
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                            if let sub = selectedSubclass {
-                                Text(sub.name)
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                            } else {
-                                Text("")
-                                    .font(.caption)
-                                    .foregroundStyle(.red.opacity(0.7))
-                            }
-                        }
-                        Spacer()
-                        Button {
-                            sheetClass = cls
-                            showSheet = true
-                        } label: {
-                            Text("Change Subclass")
-                                .font(.caption)
-                                .foregroundStyle(.blue)
+                    LazyVGrid(columns: columns, spacing: 12) {
+                        ForEach(viewModel.classes) { cls in
+                            TomeClassCard(cls: cls, isSelected: selectedClass == cls)
+                                .onTapGesture {
+                                    selectedClass = cls
+                                    selectedSubclass = nil
+                                    sheetClass = cls
+                                    showSheet = true
+                                }
                         }
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+
+                    // Selected summary
+                    if let cls = selectedClass {
+                        VStack(spacing: 0) {
+                            Rectangle()
+                                .fill(LinearGradient(colors: [.clear, Color.tomeSepia.opacity(0.3), .clear],
+                                                     startPoint: .leading, endPoint: .trailing))
+                                .frame(height: 0.8)
+                                .padding(.horizontal, 16)
+                                .padding(.top, 20)
+
+                            HStack(spacing: 14) {
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(cls.name)
+                                        .font(.custom("Cinzel-Regular", size: 14))
+                                        .foregroundStyle(Color.tomeParchment)
+                                    if let sub = selectedSubclass {
+                                        Text(sub.name)
+                                            .font(.custom("IMFellEnglish-Regular", size: 12))
+                                            .italic()
+                                            .foregroundStyle(Color.tomeGold)
+                                    } else {
+                                        Text("No subclass selected")
+                                            .font(.custom("IMFellEnglish-Regular", size: 12))
+                                            .italic()
+                                            .foregroundStyle(Color.tomeCrimsonLight)
+                                    }
+                                }
+                                Spacer()
+                                Button {
+                                    sheetClass = cls
+                                    showSheet = true
+                                } label: {
+                                    Text("Change Subclass")
+                                        .font(.custom("Cinzel-Regular", size: 9))
+                                        .tracking(1)
+                                        .foregroundStyle(Color.tomeGold)
+                                        .padding(.horizontal, 10).padding(.vertical, 6)
+                                        .background(Color.tomeGold.opacity(0.1))
+                                        .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(Color.tomeGold.opacity(0.3), lineWidth: 0.7))
+                                        .cornerRadius(2)
+                                }
+                                .buttonStyle(TomeButtonStyle())
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.top, 14)
+                        }
+                    }
+
+                    Spacer(minLength: 100)
                 }
+                .padding(.bottom, 20)
             }
 
-            // MARK: - Confirm button
-            Button {
-                guard let cls = selectedClass, let sub = selectedSubclass, let character else { return }
-                holder.multiclass(character: character, selectedClass: cls, selectedSubclass: sub, context)
-                dismiss()
-            } label: {
-                Label("Confirm Multiclass", systemImage: "plus.circle.fill")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(canConfirm ? Color.blue : Color(.systemGray4))
-                    .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            VStack(spacing: 0) {
+                LinearGradient(colors: [Color.tomeBg.opacity(0), Color.tomeBg],
+                               startPoint: .top, endPoint: .bottom)
+                    .frame(height: 30)
+                SealButton(canConfirm ? "Confirm Multiclass" : "Select Class & Subclass", isLoading: false) {
+                    guard let cls = selectedClass, let sub = selectedSubclass, let character else { return }
+                    holder.multiclass(character: character, selectedClass: cls, selectedSubclass: sub, context)
+                    dismiss()
+                }
+                .disabled(!canConfirm)
+                .opacity(canConfirm ? 1 : 0.5)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 28)
+                .background(Color.tomeBg)
             }
-            .disabled(!canConfirm)
-            .padding()
         }
         .sheet(isPresented: $showSheet) {
             if let sheetClass {
-                SubclassView(selectedClass: sheetClass, selectedSubclass: $selectedSubclass)
-                    .presentationDetents([.fraction(0.25)])
+                TomeSubclassSheet(selectedClass: sheetClass, selectedSubclass: $selectedSubclass)
+                    .presentationDetents([.fraction(0.3)])
                     .presentationDragIndicator(.visible)
             }
         }
         .navigationTitle("Multiclass")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
-// MARK: - ClassCards
-private struct ClassCards: View {
-    let classes: ClassesModel
-    var selectedClass: ClassesModel? = nil
+// MARK: - Class Card
+private struct TomeClassCard: View {
+    let cls: ClassesModel
+    let isSelected: Bool
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(Color.white)
-            .frame(width: 100, height: 100)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(selectedClass == classes ? Color.blue : Color.gray.opacity(0.3), lineWidth: 2)
-            )
-            .overlay {
-                VStack(spacing: 6) {
-                    Spacer()
-                    Text(classes.name)
-                        .font(.headline)
-                    Text(classes.primaryAbility)
-                        .font(.caption)
-                        .foregroundStyle(.gray)
-                    Spacer()
-                }
-                .padding(8)
-            }
-            .padding(4)
+        VStack(spacing: 6) {
+            Text(cls.name)
+                .font(.custom("Cinzel-Regular", size: 11))
+                .tracking(0.5)
+                .foregroundStyle(isSelected ? Color.tomeParchment : Color.tomeMuted)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+            Text(cls.primaryAbility)
+                .font(.custom("IMFellEnglish-Regular", size: 9))
+                .italic()
+                .foregroundStyle(isSelected ? Color.tomeGold : Color.tomeSepia.opacity(0.6))
+                .lineLimit(1)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 72)
+        .padding(.horizontal, 6)
+        .background(isSelected ? Color.tomeGold.opacity(0.08) : Color.tomeLeather)
+        .overlay(
+            RoundedRectangle(cornerRadius: 3)
+                .strokeBorder(isSelected ? Color.tomeGold.opacity(0.5) : Color.tomeSepia.opacity(0.3), lineWidth: isSelected ? 1.2 : 0.8)
+        )
+        .cornerRadius(3)
+        .animation(.easeInOut(duration: 0.15), value: isSelected)
     }
 }
 
-// MARK: - SubclassView
-private struct SubclassView: View {
+// MARK: - Subclass Sheet
+private struct TomeSubclassSheet: View {
     let selectedClass: ClassesModel
     @Binding var selectedSubclass: SubclassModel?
     @StateObject var viewModel = SubclassesViewModel()
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text("Select a Subclass")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .padding(.horizontal)
-                .padding(.top)
+        ZStack {
+            Color.tomeBg.ignoresSafeArea()
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
-                    ForEach(viewModel.subclasses) { subclass in
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 120, height: 60)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(selectedSubclass == subclass ? Color.blue : Color.gray.opacity(0.3), lineWidth: 2)
-                            )
-                            .overlay {
-                                Text(subclass.name)
-                                    .font(.caption)
-                                    .multilineTextAlignment(.center)
-                                    .padding(4)
-                            }
-                            .onTapGesture {
-                                selectedSubclass = subclass
-                                dismiss()
-                            }
-                    }
+            VStack(alignment: .leading, spacing: 14) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Select Subclass".uppercased())
+                        .font(.custom("Cinzel-Regular", size: 9))
+                        .tracking(2)
+                        .foregroundStyle(Color.tomeMuted)
+                    Text(selectedClass.name)
+                        .font(.custom("Cinzel-Regular", size: 16))
+                        .foregroundStyle(Color.tomeParchment)
                 }
-                .padding(.horizontal)
-            }
-            .onAppear{
-                viewModel.fetchSubclasses(className: selectedClass.name)
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(viewModel.subclasses) { subclass in
+                            let isSelected = selectedSubclass == subclass
+                            Text(subclass.name)
+                                .font(.custom("IMFellEnglish-Regular", size: isSelected ? 13 : 12))
+                                .italic()
+                                .foregroundStyle(isSelected ? Color.tomeInk : Color.tomeParchment)
+                                .padding(.horizontal, 14).padding(.vertical, 10)
+                                .background(isSelected ? Color.tomeGold : Color.tomeLeather)
+                                .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(isSelected ? Color.tomeGold : Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+                                .cornerRadius(2)
+                                .onTapGesture {
+                                    selectedSubclass = subclass
+                                    dismiss()
+                                }
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                }
             }
         }
+        .onAppear { viewModel.fetchSubclasses(className: selectedClass.name) }
     }
 }

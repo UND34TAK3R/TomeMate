@@ -15,11 +15,7 @@ struct ChangeLanguagesView: View {
     @StateObject var viewModel = LanguageViewModel()
     @State var languages: [LanguageModel] = []
     @State var manualSelections: Set<String> = []
-    @State private var grantedLanguages: Set<String> = [] // frozen on appear, never changes
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+    @State private var grantedLanguages: Set<String> = []
 
     func isGranted(_ language: LanguageModel) -> Bool {
         grantedLanguages.contains(language.name)
@@ -29,57 +25,83 @@ struct ChangeLanguagesView: View {
         manualSelections.contains(language.name) || isGranted(language)
     }
 
+    var selectedCount: Int {
+        languages.filter { isProficient($0) }.count
+    }
+
     var body: some View {
         ZStack(alignment: .bottom) {
-            VStack {
-                Text("Select your Languages")
-                    .font(.title)
-                    .bold()
-                    .padding(.vertical, 10)
+            Color.tomeBg.ignoresSafeArea()
+            TomeParticlesView()
 
-                ScrollView(showsIndicators: false) {
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(languages) { language in
-                            LanguageCard(
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    VStack(spacing: 6) {
+                        Text("Languages")
+                            .font(.custom("Cinzel-Regular", size: 20))
+                            .foregroundStyle(Color.tomeParchment)
+                        DecorativeRuleView()
+                            .padding(.horizontal, 60)
+                        Text("\(selectedCount) selected")
+                            .font(.custom("IMFellEnglish-Regular", size: 12))
+                            .italic()
+                            .foregroundStyle(Color.tomeGold)
+                    }
+                    .padding(.vertical, 20)
+
+                    VStack(spacing: 0) {
+                        ForEach(Array(languages.enumerated()), id: \.element.id) { index, language in
+                            TomeLanguageCard(
                                 language: language,
                                 isProficient: isProficient(language),
                                 isLocked: isGranted(language)
                             ) {
-                                if isGranted(language) { return }
-                                if manualSelections.contains(language.name) {
-                                    manualSelections.remove(language.name)
-                                } else {
-                                    manualSelections.insert(language.name)
+                                guard !isGranted(language) else { return }
+                                withAnimation(.easeInOut(duration: 0.15)) {
+                                    if manualSelections.contains(language.name) {
+                                        manualSelections.remove(language.name)
+                                    } else {
+                                        manualSelections.insert(language.name)
+                                    }
                                 }
+                            }
+                            if index < languages.count - 1 {
+                                Rectangle()
+                                    .fill(Color.tomeSepia.opacity(0.2))
+                                    .frame(height: 0.8)
+                                    .padding(.leading, 16)
                             }
                         }
                     }
-                    .padding(.bottom, 90)
+                    .background(Color.tomeLeather)
+                    .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+                    .cornerRadius(3)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 100)
                 }
             }
 
-            Button {
-                let selected = languages.filter { isProficient($0) }
-                holder.updateLanguage(character: character, languages: selected, context)
-                dismiss()
-            } label: {
-                Text("Save Languages")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
+            VStack(spacing: 0) {
+                LinearGradient(colors: [Color.tomeBg.opacity(0), Color.tomeBg],
+                               startPoint: .top, endPoint: .bottom)
+                    .frame(height: 30)
+                SealButton("Save Languages", isLoading: false) {
+                    let selected = languages.filter { isProficient($0) }
+                    holder.updateLanguage(character: character, languages: selected, context)
+                    dismiss()
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 28)
+                .background(Color.tomeBg)
             }
-            .buttonStyle(.borderedProminent)
-            .padding(.horizontal)
-            .padding(.bottom, 20)
-            .background(
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .ignoresSafeArea()
-            )
         }
+        .navigationTitle("Languages")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .onAppear {
             viewModel.fetchLanguages()
             manualSelections = Set(character.languages ?? [])
-            grantedLanguages = [] // nothing is permanently locked — all are editable
+            grantedLanguages = []
         }
         .onChange(of: viewModel.languages) { newLanguages in
             languages = newLanguages
@@ -87,29 +109,55 @@ struct ChangeLanguagesView: View {
     }
 }
 
-private struct LanguageCard: View {
+private struct TomeLanguageCard: View {
     let language: LanguageModel
     let isProficient: Bool
     let isLocked: Bool
     let onTap: () -> Void
 
     var body: some View {
-        HStack {
-            Text(language.name)
-            Spacer()
-            ZStack {
-                Circle()
-                    .strokeBorder(isLocked ? Color.gray.opacity(0.4) : Color.gray, lineWidth: 1)
-                    .frame(width: 20, height: 20)
-                Circle()
-                    .frame(width: 20, height: 20)
-                    .foregroundStyle(isLocked ? Color.blue.opacity(0.4) : Color.blue)
-                    .scaleEffect(isProficient ? 1 : 0)
+        Button(action: onTap) {
+            HStack(spacing: 14) {
+                ZStack {
+                    Circle()
+                        .strokeBorder(
+                            isLocked ? Color.tomeSepia.opacity(0.3) : (isProficient ? Color.tomeGold : Color.tomeSepia.opacity(0.4)),
+                            lineWidth: 1
+                        )
+                        .frame(width: 20, height: 20)
+                    if isProficient {
+                        Circle()
+                            .fill(isLocked ? Color.tomeSepia.opacity(0.5) : Color.tomeGold)
+                            .frame(width: 12, height: 12)
+                    }
+                }
+
+                Text(language.name)
+                    .font(.custom("IMFellEnglish-Regular", size: 14))
+                    .foregroundStyle(isProficient ? Color.tomeParchment : Color.tomeMuted)
+
+                Spacer()
+
+                if isLocked {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 10, weight: .light))
+                        .foregroundStyle(Color.tomeSepia.opacity(0.5))
+                } else if isProficient {
+                    Text("Known")
+                        .font(.custom("Cinzel-Regular", size: 9))
+                        .tracking(1)
+                        .foregroundStyle(Color.tomeGold)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.tomeGold.opacity(0.1))
+                        .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(Color.tomeGold.opacity(0.3), lineWidth: 0.7))
+                        .cornerRadius(2)
+                }
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
-        .padding()
-        .onTapGesture {
-            onTap()
-        }
+        .buttonStyle(TomeButtonStyle())
+        .disabled(isLocked)
     }
 }
