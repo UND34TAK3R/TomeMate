@@ -23,6 +23,7 @@ struct ContentView: View {
                 } else {
                     TomeAuthView()
                 }
+                
             }
             .navigationDestination(for: Character.self) { character in
                 CharacterOverviewView(character: character, path: $path)
