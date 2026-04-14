@@ -12,21 +12,22 @@ struct CharacterItemDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.tomeBg
-                .ignoresSafeArea()
+            Color.tomeBg.ignoresSafeArea()
             TomeParticlesView()
             CornerOrnamentView()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
+
+                    // MARK: - Header
                     VStack(alignment: .leading, spacing: 4) {
                         Text(item.name ?? "")
                             .font(.custom("Cinzel-Regular", size: 35))
-                            .foregroundStyle(Color.tomeInk)
+                            .foregroundStyle(Color.tomeGoldLight)
                         Text(item.type ?? "")
                             .font(.custom("IMFellEnglish-Regular", size: 20))
                             .italic()
-                            .foregroundStyle(Color.tomeSepia)
+                            .foregroundStyle(Color.tomeGoldDim)
                         Text(item.rarity ?? "")
                             .font(.custom("Cinzel-Regular", size: 20))
                             .tracking(1.5)
@@ -36,6 +37,7 @@ struct CharacterItemDetailView: View {
 
                     DecorativeRuleView()
 
+                    // MARK: - Description
                     if let desc = item.desc, !desc.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Description")
@@ -46,11 +48,11 @@ struct CharacterItemDetailView: View {
                                 .font(.custom("IMFellEnglish-Regular", size: 20))
                                 .foregroundStyle(Color.tomeSepia)
                                 .fixedSize(horizontal: false, vertical: true)
-                            
                         }
                         .fadeUp(appeared, delay: 0.1)
                     }
-                    
+
+                    // MARK: - Type-specific
                     if item.isMagic {
                         DecorativeRuleView()
                         typeSpecificSection(for: item)
@@ -60,17 +62,16 @@ struct CharacterItemDetailView: View {
                 .padding(24)
             }
         }
-        .navigationTitle(item.name ?? "")
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .onAppear { appeared = true }
     }
-    
+
     @ViewBuilder
     private func typeSpecificSection(for item: Item) -> some View {
         let type = item.type?.lowercased() ?? ""
 
-        // Weapon types
         if ["ranged weapon", "melee weapon"].contains(type) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Weapon")
@@ -78,17 +79,17 @@ struct CharacterItemDetailView: View {
                     .tracking(2)
                     .foregroundStyle(Color.tomeCrimson)
                 if let bonus = item.bonusWeapon, !bonus.isEmpty {
-                    DetailRow(label: "Attack Bonus", value: "\(bonus)")
+                    CharItemDetailRow(label: "Attack Bonus", value: bonus)
                 }
                 if item.weight != 0 {
-                    DetailRow(label: "Weight", value: "\(item.weight) lbs")
+                    CharItemDetailRow(label: "Weight", value: "\(item.weight) lbs")
                 }
                 if item.value != 0 {
-                    DetailRow(label: "Value", value: "\(item.value) gp")
+                    CharItemDetailRow(label: "Value", value: "\(item.value) gp")
                 }
+                DecorativeRuleView()
             }
 
-        // Armor types
         } else if ["light armor", "medium armor", "heavy armor"].contains(type) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Armor")
@@ -96,14 +97,14 @@ struct CharacterItemDetailView: View {
                     .tracking(2)
                     .foregroundStyle(Color.tomeCrimson)
                 if let bonus = item.bonusAc, !bonus.isEmpty {
-                    DetailRow(label: "AC Bonus", value: "\(bonus)")
+                    CharItemDetailRow(label: "AC Bonus", value: bonus)
                 }
                 if item.weight != 0 {
-                    DetailRow(label: "Weight", value: "\(item.weight) lbs")
+                    CharItemDetailRow(label: "Weight", value: "\(item.weight) lbs")
                 }
+                DecorativeRuleView()
             }
 
-        // Wondrous / magical focus
         } else if item.wondrous {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Magical Properties")
@@ -111,33 +112,36 @@ struct CharacterItemDetailView: View {
                     .tracking(2)
                     .foregroundStyle(Color.tomeCrimson)
                 if let spellAtk = item.bonusSpellAttack, !spellAtk.isEmpty {
-                    DetailRow(label: "Spell Attack", value: "\(spellAtk)")
+                    CharItemDetailRow(label: "Spell Attack", value: spellAtk)
                 }
                 if let spellDc = item.bonusSpellSaveDc, !spellDc.isEmpty {
-                    DetailRow(label: "Spell Save DC", value: "\(spellDc)")
+                    CharItemDetailRow(label: "Spell Save DC", value: spellDc)
                 }
+                DecorativeRuleView()
             }
         }
 
         if item.reqAttune {
-            DetailRow(label: "Attunement", value: "Required")
+            CharItemDetailRow(label: "Attunement", value: "Required")
+            DecorativeRuleView()
         }
     }
+}
 
-    private struct DetailRow: View {
-        let label: String
-        let value: String
-        var body: some View {
-            HStack {
-                Text(label)
-                    .font(.custom("Cinzel-Regular", size: 20))
-                    .tracking(1.5)
-                    .foregroundStyle(Color.tomeMuted)
-                Spacer()
-                Text(value)
-                    .font(.custom("IMFellEnglish-Regular", size: 23))
-                    .foregroundStyle(Color.tomeParchmentLight)
-            }
+private struct CharItemDetailRow: View {
+    let label: String
+    let value: String
+
+    var body: some View {
+        HStack {
+            Text(label)
+                .font(.custom("Cinzel-Regular", size: 20))
+                .tracking(1.5)
+                .foregroundStyle(Color.tomeMuted)
+            Spacer()
+            Text(value)
+                .font(.custom("IMFellEnglish-Regular", size: 23))
+                .foregroundStyle(Color.tomeParchmentLight)
         }
     }
 }
