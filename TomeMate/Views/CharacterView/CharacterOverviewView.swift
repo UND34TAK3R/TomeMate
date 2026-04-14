@@ -1,415 +1,546 @@
 import SwiftUI
-
+ 
 struct CharacterOverviewView: View {
-    
+ 
     @State var character: Character?
     @Binding var path: NavigationPath
     @Environment(\.managedObjectContext) private var context
     @EnvironmentObject private var holder: TomeMateHolder
-    
+ 
+    // MARK: - Computed helpers (pulled out to avoid type-checker overload)
+ 
+    private var classNames: String {
+        (character?.classes as? Set<Classes>)
+            .map { $0.compactMap { $0.name }.sorted().joined(separator: " / ") } ?? "—"
+    }
+ 
+    private var subclassNames: String {
+        (character?.classes as? Set<Classes>)
+            .map { $0.compactMap { $0.subclass }.sorted().joined(separator: " / ") } ?? "—"
+    }
+ 
+    private var proficientSkills: [SkillProficiencies] {
+        (character?.skillProf as? Set<SkillProficiencies>)?
+            .filter { $0.isProficient }
+            .sorted { ($0.name ?? "") < ($1.name ?? "") } ?? []
+    }
+ 
+    // MARK: - Body
+ 
     var body: some View {
-        ZStack(alignment: .bottomTrailing){
+        ZStack(alignment: .bottomTrailing) {
+            Color.tomeBg.ignoresSafeArea()
+            TomeParticlesView()
+            CornerOrnamentView()
+ 
             ScrollView(showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 24) {
-                    
-                    // MARK: - Avatar + Name
-                    HStack(spacing: 16) {
-                        ZStack {
-                            if let image = character?.charImg {
-                                Image(image)
-                                    .resizable()
-                                    .scaledToFill()
-                            } else {
-                                Color.gray.opacity(0.15)
-                                Image(systemName: "person.fill")
-                                    .foregroundColor(.gray)
-                            }
-                        }
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.primary.opacity(0.1), lineWidth: 1))
-                        
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text(character?.name ?? "Unknown")
-                                .font(.system(size: 20, weight: .semibold, design: .serif))
-                            Text("Lvl \(character?.level ?? 1)")
-                                .font(.caption)
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                            let classNames = (character?.classes as? Set<Classes>)
-                                .map { $0.compactMap { $0.name }.sorted().joined(separator: " / ") } ?? "—"
-                            Text("\(character?.race ?? "—")  ·  \(classNames)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
-                        
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Details
-                    
-                    let subclassNames = (character?.classes as? Set<Classes>)
-                        .map { $0.compactMap{ $0.subclass}.sorted().joined(separator: " / ")}
-                    ?? "—"
-                    
-                    VStack(spacing: 14) {
-                        HStack {
-                            StatCircle(icon: "heart", value: "\(character?.hp ?? 0)", label: "Hit Points")
-                            Spacer()
-                            StatCircle(icon: "shield", value: "\(character?.armorClass ?? 0)", label: "Armor Class")
-                            Spacer()
-                            VStack(spacing: 4) {
-                                Circle()
-                                    .fill(Color(.systemGray6))
-                                    .strokeBorder(Color.primary.opacity(0.2), lineWidth: 1.5)
-                                    .frame(width: 44, height: 44)
-                                    .overlay {
-                                        Text("\(character?.initiative ?? 0)")
-                                            .font(.system(size: 16, weight: .bold))
-                                    }
-                                Text("Initiative")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            VStack(spacing: 4) {
-                                Circle()
-                                    .fill(Color(.systemGray6))
-                                    .strokeBorder(Color.primary.opacity(0.2), lineWidth: 1.5)
-                                    .frame(width: 44, height: 44)
-                                    .overlay {
-                                        Text("\(character?.passivePerception ?? 0)")
-                                            .font(.system(size: 16, weight: .bold))
-                                    }
-                                Text("Perception")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                            Spacer()
-                            VStack(spacing: 4) {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.primary.opacity(0.3), lineWidth: 1.5)
-                                    .frame(width: 44, height: 44)
-                                    .overlay {
-                                        VStack(spacing: 1) {
-                                            Text("\(character?.speed ?? "30")")
-                                                .font(.system(size: 12, weight: .bold))
-                                        }
-                                    }
-                                Text("Speed")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                        
-                        Divider()
-                        HStack{
-                            if(character?.useXp == true){
-                                HStack(spacing: 6) {
-                                    Image(systemName: "circle.fill")
-                                        .foregroundColor(.green)
-                                        .font(.system(size: 10))
-                                    Text("\(character?.experiencePoints ?? 0) xp")
-                                        .font(.subheadline)
-                                        .fontWeight(.medium)
-                                }
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 6)
-                                .background(Color.green.opacity(0.1))
-                                .cornerRadius(8)
-                                Spacer()
-                            }
-                            HStack(spacing: 6) {
-                                Image(systemName: "circle.fill")
-                                    .foregroundColor(.yellow)
-                                    .font(.system(size: 10))
-                                Text("\(character?.gold ?? 0) gp")
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(Color.yellow.opacity(0.1))
-                            .cornerRadius(8)
-                            
-                            Spacer()
-                            
-                            HStack(spacing: 6) {
-                                Image(systemName: "sparkles")
-                                    .foregroundColor(.indigo)
-                                    .font(.system(size: 12))
-                                Text("\(character?.inspiration ?? 0) Inspiration")
-                                    .font(.subheadline)
-                                    .fontWeight(.medium)
-                            }
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .background(Color.indigo.opacity(0.1))
-                            .cornerRadius(8)
-                        }
-                        Divider()
-                        
-                        OverviewRow(label: "Subclass", value: subclassNames)
-                        OverviewRow(label: "Subrace", value: character?.subrace ?? "—")
-                        OverviewRow(label: "Background", value: character?.background ?? "—")
-                        OverviewRow(label: "Alignment", value: character?.alignment ?? "—")
-                        OverviewRow(label: "Age", value: "\(character?.age ?? 0) years old")
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Stats
-                    HStack {
-                        Text("Stats")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .textCase(.uppercase)
-                            .kerning(1)
-                        Spacer()
-                        NavigationLink(destination: ChangeStatsView(character: character ?? nil)) {
-                            Image(systemName: "pencil")
-                                .font(.title3)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                        MiniStat(label: "STR", value: character?.stats?.strength ?? 0)
-                        MiniStat(label: "DEX", value: character?.stats?.dexterity ?? 0)
-                        MiniStat(label: "CON", value: character?.stats?.constitution ?? 0)
-                        MiniStat(label: "INT", value: character?.stats?.intelligence ?? 0)
-                        MiniStat(label: "WIS", value: character?.stats?.wisdom ?? 0)
-                        MiniStat(label: "CHA", value: character?.stats?.charisma ?? 0)
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Skill Proficiencies
-                    HStack {
-                        Text("Skill Proficiencies")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .textCase(.uppercase)
-                            .kerning(1)
-                        Spacer()
-                        NavigationLink(destination: ChangeSkillsView(character: character ?? nil)) {
-                            Image(systemName: "pencil")
-                                .font(.title3)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    
-                    let proficientSkills = (character?.skillProf as? Set<SkillProficiencies>)?
-                        .filter { $0.isProficient }
-                        .sorted { ($0.name ?? "") < ($1.name ?? "") } ?? []
-                    
-                    if proficientSkills.isEmpty {
-                        Text("No proficiencies")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                    } else {
-                        VStack(spacing: 0) {
-                            ForEach(Array(proficientSkills.enumerated()), id: \.element) { index, skill in
-                                HStack(spacing: 12) {
-                                    Circle()
-                                        .fill(Color.primary.opacity(0.75))
-                                        .frame(width: 7, height: 7)
-                                    Text(skill.name ?? "—")
-                                        .font(.subheadline)
-                                    Spacer()
-                                    Text("+\(character?.proficiencyBonus ?? 0)")
-                                        .font(.system(size: 13, design: .monospaced))
-                                        .foregroundColor(.secondary)
-                                }
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 4)
-                                
-                                if index < proficientSkills.count - 1 {
-                                    Divider().padding(.leading, 20)
-                                }
-                            }
-                        }
-                        .background(Color.primary.opacity(0.03))
-                        .cornerRadius(10)
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Languages
-                    HStack {
-                        Text("Languages")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .textCase(.uppercase)
-                            .kerning(1)
-                        Spacer()
-                        NavigationLink(destination: ChangeLanguagesView(character: character!)) {
-                            Image(systemName: "pencil")
-                                .font(.title3)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    ScrollView(.horizontal, showsIndicators: false){
-                        FlowLayout(items: character?.languages ?? []) { lang in
-                            Text(lang)
-                                .font(.footnote)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.primary.opacity(0.06))
-                                .cornerRadius(20)
-                        }
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Quick Access
-                    Text("Quick Access")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .textCase(.uppercase)
-                        .kerning(1)
-                    VStack(spacing: 12) {
-                        NavigationLink(destination: SpellsView(character: character)) {
-                            Label("Spells", systemImage: "sparkles")
-                                .font(.subheadline.weight(.semibold))
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(Color.indigo.opacity(0.1))
-                                .foregroundColor(.indigo)
-                                .cornerRadius(12)
-                        }
-                        
-                        NavigationLink(destination: ItemsView(character: character)) {
-                            Label("Items", systemImage: "bag.fill")
-                                .font(.subheadline.weight(.semibold))
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(Color.orange.opacity(0.1))
-                                .foregroundColor(.orange)
-                                .cornerRadius(12)
-                        }
-                        
-                        NavigationLink(destination: NotesView(character: character)) {
-                            Label("Notes", systemImage: "note.text")
-                                .font(.subheadline.weight(.semibold))
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(Color.green.opacity(0.1))
-                                .foregroundColor(.green)
-                                .cornerRadius(12)
-                        }
-                        NavigationLink(
-                            destination: Group {
-                                if character?.campaign == nil {
-                                    CreateCampaignView(character: character!, path: $path)
-                                } else {
-                                    QuestLogView(campaign: character!.campaign!)
-                                }
-                            }
-                        ) {
-                            Label("Campaign", systemImage: "map")
-                                .font(.subheadline.weight(.semibold))
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 14)
-                                .background(Color.red.opacity(0.1))
-                                .foregroundColor(.red)
-                                .cornerRadius(12)
-                        }
-                    }
-                    .padding(24)
+                VStack(alignment: .leading, spacing: 20) {
+                    headerSection
+                    tomeRule
+                    combatStatsSection
+                    tomeRule
+                    detailsSection
+                    tomeRule
+                    statsSection
+                    tomeRule
+                    skillsSection
+                    tomeRule
+                    languagesSection
+                    tomeRule
+                    quickAccessSection
+                        .padding(.bottom, 100)
                 }
-                .padding()
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
             }
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        path = NavigationPath()
-                    } label: {
+                    Button { path = NavigationPath() } label: {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.black)
+                            .foregroundColor(.tomeGold)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        UpdateCharacterView(character: character!)
-                    } label: {
+                    NavigationLink { UpdateCharacterView(character: character!) } label: {
                         Image(systemName: "slider.horizontal.3")
+                            .foregroundColor(.tomeGold)
                     }
                 }
             }
             .navigationTitle(character?.name ?? "Overview")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            NavigationLink(destination:LevelUpView(character: character!)){
-                Image(systemName: "arrow.up")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(width: 56, height: 56)
-                    .background(Color.indigo)
+ 
+            levelUpFAB
+        }
+    }
+ 
+    // MARK: - Header
+ 
+    private var headerSection: some View {
+        HStack(spacing: 16) {
+            avatarView
+            characterNameStack
+            Spacer()
+        }
+        .padding(.top, 8)
+    }
+ 
+    private var avatarView: some View {
+        ZStack {
+            Circle()
+                .fill(Color.tomeLeather)
+                .overlay(Circle().strokeBorder(Color.tomeGold.opacity(0.4), lineWidth: 1.5))
+            if let image = character?.charImg {
+                Image(image)
+                    .resizable()
+                    .scaledToFill()
                     .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+            } else {
+                Image(systemName: "person.fill")
+                    .foregroundColor(.tomeSepia)
+                    .font(.system(size: 24))
             }
-                .padding(24)
+        }
+        .frame(width: 60, height: 60)
+    }
+ 
+    private var characterNameStack: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(character?.name ?? "Unknown")
+                .font(.custom("Cinzel-Regular", size: 20))
+                .foregroundStyle(Color.tomeParchment)
+ 
+            HStack(spacing: 6) {
+                Text("Level \(character?.level ?? 1)")
+                    .font(.custom("Cinzel-Regular", size: 10))
+                    .tracking(1.5)
+                    .foregroundStyle(Color.tomeParchment)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(Color.tomeCrimson.opacity(0.7))
+                    .cornerRadius(2)
+ 
+                Text("\(character?.race ?? "—")  ·  \(classNames)")
+                    .font(.custom("IMFellEnglish-Regular", size: 12))
+                    .italic()
+                    .foregroundStyle(Color.tomeMuted)
+            }
+        }
+    }
+ 
+    // MARK: - Combat Stats
+ 
+    private var combatStatsSection: some View {
+        VStack(spacing: 14) {
+            HStack(spacing: 0) {
+                TomeCombatStat(icon: "heart.fill",   value: "\(character?.hp ?? 0)",              label: "Hit Points", accentColor: .tomeCrimson)
+                Spacer()
+                TomeCombatStat(icon: "shield.fill",  value: "\(character?.armorClass ?? 0)",      label: "Armor Class", accentColor: .tomeGold)
+                Spacer()
+                TomeCombatStat(icon: "bolt.fill",    value: "\(character?.initiative ?? 0)",      label: "Initiative", accentColor: .tomeGoldLight)
+                Spacer()
+                TomeCombatStat(icon: "eye.fill",     value: "\(character?.passivePerception ?? 0)", label: "Perception", accentColor: .tomeSepia)
+                Spacer()
+                TomeCombatStat(icon: "figure.walk",  value: "\(character?.speed ?? "30")",        label: "Speed", accentColor: .tomeMuted)
+            }
+            .padding(.vertical, 14)
+            .padding(.horizontal, 10)
+            .background(Color.tomeLeather)
+            .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.35), lineWidth: 0.8))
+            .cornerRadius(3)
+ 
+            resourcePills
+        }
+    }
+ 
+    private var resourcePills: some View {
+        HStack(spacing: 8) {
+            if character?.useXp == true {
+                TomeResourcePill(icon: "circle.fill", label: "\(character?.experiencePoints ?? 0) xp", color: .tomeGold)
+            }
+            TomeResourcePill(icon: "circle.fill", label: "\(character?.gold ?? 0) gp", color: Color("#C8962E"))
+            TomeResourcePill(icon: "sparkles",    label: "\(character?.inspiration ?? 0) Insp.", color: Color.tomeParchmentDark)
+            Spacer()
+        }
+    }
+ 
+    // MARK: - Details
+ 
+    private var detailsSection: some View {
+        VStack(spacing: 0) {
+            TomeDetailRow(label: "Subclass",   value: subclassNames)
+            tomeHairline
+            TomeDetailRow(label: "Subrace",    value: character?.subrace ?? "—")
+            tomeHairline
+            TomeDetailRow(label: "Background", value: character?.background ?? "—")
+            tomeHairline
+            TomeDetailRow(label: "Alignment",  value: character?.alignment ?? "—")
+            tomeHairline
+            TomeDetailRow(label: "Age",        value: "\(character?.age ?? 0) years old")
+        }
+        .background(Color.tomeLeather)
+        .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+        .cornerRadius(3)
+    }
+ 
+    // MARK: - Stats
+ 
+    private var statsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Ability Scores")
+                    .font(.custom("Cinzel-Regular", size: 10))
+                    .tracking(2)
+                    .foregroundStyle(Color.tomeMuted)
+                Spacer()
+                NavigationLink(destination: ChangeStatsView(character: character ?? nil)) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 13, weight: .light))
+                        .foregroundStyle(Color.tomeGold)
+                }
+            }
+ 
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                TomeMiniStat(label: "STR", value: character?.stats?.strength    ?? 0)
+                TomeMiniStat(label: "DEX", value: character?.stats?.dexterity   ?? 0)
+                TomeMiniStat(label: "CON", value: character?.stats?.constitution ?? 0)
+                TomeMiniStat(label: "INT", value: character?.stats?.intelligence ?? 0)
+                TomeMiniStat(label: "WIS", value: character?.stats?.wisdom      ?? 0)
+                TomeMiniStat(label: "CHA", value: character?.stats?.charisma    ?? 0)
+            }
+        }
+    }
+ 
+    // MARK: - Skills
+ 
+    private var skillsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Skill Proficiencies")
+                    .font(.custom("Cinzel-Regular", size: 10))
+                    .tracking(2)
+                    .foregroundStyle(Color.tomeMuted)
+                Spacer()
+                NavigationLink(destination: ChangeSkillsView(character: character ?? nil)) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 13, weight: .light))
+                        .foregroundStyle(Color.tomeGold)
+                }
+            }
+ 
+            if proficientSkills.isEmpty {
+                Text("No proficiencies recorded.")
+                    .font(.custom("IMFellEnglish-Regular", size: 12))
+                    .italic()
+                    .foregroundStyle(Color.tomeMuted)
+            } else {
+                skillsList
+            }
+        }
+    }
+ 
+    private var skillsList: some View {
+        VStack(spacing: 0) {
+            ForEach(Array(proficientSkills.enumerated()), id: \.element) { index, skill in
+                skillRow(skill: skill, isLast: index == proficientSkills.count - 1)
+            }
+        }
+        .background(Color.tomeLeather)
+        .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+        .cornerRadius(3)
+    }
+ 
+    private func skillRow(skill: SkillProficiencies, isLast: Bool) -> some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 12) {
+                Rectangle()
+                    .fill(Color.tomeCrimson.opacity(0.6))
+                    .frame(width: 2, height: 14)
+                    .cornerRadius(1)
+                Text(skill.name ?? "—")
+                    .font(.custom("IMFellEnglish-Regular", size: 13))
+                    .foregroundStyle(Color.tomeParchment)
+                Spacer()
+                Text("+\(character?.proficiencyBonus ?? 0)")
+                    .font(.custom("Cinzel-Regular", size: 11))
+                    .foregroundStyle(Color.tomeGold)
+            }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 14)
+ 
+            if !isLast {
+                Rectangle()
+                    .fill(Color.tomeSepia.opacity(0.2))
+                    .frame(height: 0.8)
+                    .padding(.leading, 28)
+            }
+        }
+    }
+ 
+    // MARK: - Languages
+ 
+    private var languagesSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text("Languages")
+                    .font(.custom("Cinzel-Regular", size: 10))
+                    .tracking(2)
+                    .foregroundStyle(Color.tomeMuted)
+                Spacer()
+                NavigationLink(destination: ChangeLanguagesView(character: character!)) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 13, weight: .light))
+                        .foregroundStyle(Color.tomeGold)
+                }
+            }
+ 
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(character?.languages ?? [], id: \.self) { lang in
+                        Text(lang)
+                            .font(.custom("IMFellEnglish-Regular", size: 11))
+                            .italic()
+                            .foregroundStyle(Color.tomeParchment)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Color.tomeLeather)
+                            .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(Color.tomeSepia.opacity(0.4), lineWidth: 0.8))
+                            .cornerRadius(2)
+                    }
+                }
+            }
+        }
+    }
+ 
+    // MARK: - Quick Access
+ 
+    private var quickAccessSection: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Quick Access")
+                .font(.custom("Cinzel-Regular", size: 10))
+                .tracking(2)
+                .foregroundStyle(Color.tomeMuted)
+ 
+            TomeQuickAccessLink(destination: AnyView(SpellsView(character: character)), icon: "sparkles",  label: "Spells", accent: Color.tomeGoldLight)
+            TomeQuickAccessLink(destination: AnyView(ItemsView(character: character)),  icon: "bag.fill",  label: "Items",  accent: Color("#C8962E"))
+            TomeQuickAccessLink(destination: AnyView(NotesView(character: character)),  icon: "note.text", label: "Notes",  accent: Color.tomeParchmentDark)
+            campaignLink
+        }
+    }
+ 
+    private var campaignLink: some View {
+        NavigationLink(
+            destination: Group {
+                if character?.campaign == nil {
+                    CreateCampaignView(character: character!, path: $path)
+                } else {
+                    QuestLogView(campaign: character!.campaign!)
+                }
+            }
+        ) {
+            HStack(spacing: 10) {
+                Image(systemName: "map")
+                    .font(.system(size: 14, weight: .light))
+                    .foregroundStyle(Color.tomeCrimsonLight)
+                Text("Campaign")
+                    .font(.custom("Cinzel-Regular", size: 12))
+                    .tracking(1.5)
+                    .foregroundStyle(Color.tomeParchment)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.tomeSepia)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(Color.tomeLeather)
+            .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeCrimson.opacity(0.3), lineWidth: 0.8))
+            .cornerRadius(3)
+        }
+        .buttonStyle(TomeButtonStyle())
+    }
+ 
+    // MARK: - Level Up FAB
+ 
+    private var levelUpFAB: some View {
+        NavigationLink(destination: LevelUpView(character: character!)) {
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.tomeCrimson, Color("#A02020")],
+                            startPoint: .topLeading, endPoint: .bottomTrailing
+                        )
+                    )
+                    .shadow(color: Color.tomeCrimson.opacity(0.5), radius: 12, x: 0, y: 4)
+                VStack(spacing: 0) {
+                    Image(systemName: "arrow.up")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(.tomeParchment)
+                    Text("LVL")
+                        .font(.custom("Cinzel-Regular", size: 7))
+                        .tracking(1)
+                        .foregroundStyle(Color.tomeParchment.opacity(0.8))
+                }
+            }
+            .frame(width: 58, height: 58)
+        }
+        .padding(24)
+    }
+ 
+    // MARK: - Decorative helpers
+ 
+    private var tomeRule: some View {
+        Rectangle()
+            .fill(LinearGradient(colors: [.clear, Color.tomeSepia.opacity(0.4), .clear],
+                                 startPoint: .leading, endPoint: .trailing))
+            .frame(height: 0.8)
+    }
+ 
+    private var tomeHairline: some View {
+        Rectangle()
+            .fill(Color.tomeSepia.opacity(0.2))
+            .frame(height: 0.8)
+            .padding(.leading, 14)
+    }
+}
+ 
+// MARK: - Subviews
+ 
+struct TomeCombatStat: View {
+    let icon: String
+    let value: String
+    let label: String
+    let accentColor: Color
+ 
+    var body: some View {
+        VStack(spacing: 5) {
+            Image(systemName: icon)
+                .font(.system(size: 10, weight: .light))
+                .foregroundStyle(accentColor.opacity(0.8))
+            Text(value)
+                .font(.custom("Cinzel-Bold", size: 16))
+                .foregroundStyle(Color.tomeParchment)
+            Text(label)
+                .font(.custom("Cinzel-Regular", size: 7))
+                .tracking(0.8)
+                .foregroundStyle(Color.tomeMuted)
+                .multilineTextAlignment(.center)
         }
     }
 }
-
-// MARK: - Subviews
-
-struct OverviewRow: View {
+ 
+struct TomeResourcePill: View {
+    let icon: String
+    let label: String
+    let color: Color
+ 
+    var body: some View {
+        HStack(spacing: 5) {
+            Image(systemName: icon)
+                .foregroundColor(color)
+                .font(.system(size: 8))
+            Text(label)
+                .font(.custom("IMFellEnglish-Regular", size: 11))
+                .italic()
+                .foregroundStyle(Color.tomeParchment.opacity(0.85))
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 6)
+        .background(Color.tomeLeather)
+        .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.7))
+        .cornerRadius(2)
+    }
+}
+ 
+struct TomeDetailRow: View {
     let label: String
     let value: String
-    
+ 
     var body: some View {
         HStack {
             Text(label)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
+                .font(.custom("Cinzel-Regular", size: 10))
+                .tracking(1)
+                .foregroundStyle(Color.tomeMuted)
             Spacer()
             Text(value)
-                .font(.subheadline)
+                .font(.custom("IMFellEnglish-Regular", size: 13))
+                .italic()
+                .foregroundStyle(Color.tomeParchment)
         }
+        .padding(.vertical, 11)
+        .padding(.horizontal, 14)
     }
 }
-
-struct MiniStat: View {
+ 
+struct TomeMiniStat: View {
     let label: String
     let value: Int16
-    
+ 
     var modifier: String {
         let mod = (Int(value) - 10) / 2
         return mod >= 0 ? "+\(mod)" : "\(mod)"
     }
-    
+ 
     var body: some View {
-        VStack(spacing: 2) {
-            Text("\(value)")
-                .font(.system(size: 20, weight: .semibold))
-            Text(modifier)
-                .font(.caption2)
-                .foregroundColor(.secondary)
+        VStack(spacing: 3) {
             Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-                .textCase(.uppercase)
-                .kerning(1)
+                .font(.custom("Cinzel-Regular", size: 8))
+                .tracking(2)
+                .foregroundStyle(Color.tomeMuted)
+            Text("\(value)")
+                .font(.custom("Cinzel-Bold", size: 22))
+                .foregroundStyle(Color.tomeParchment)
+            Text(modifier)
+                .font(.custom("Cinzel-Regular", size: 10))
+                .foregroundStyle(Color.tomeGold)
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 12)
-        .background(Color.primary.opacity(0.04))
-        .cornerRadius(10)
+        .background(Color.tomeLeather)
+        .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+        .cornerRadius(3)
     }
 }
-
+ 
+struct TomeQuickAccessLink: View {
+    let destination: AnyView
+    let icon: String
+    let label: String
+    let accent: Color
+ 
+    var body: some View {
+        NavigationLink(destination: destination) {
+            HStack(spacing: 10) {
+                Image(systemName: icon)
+                    .font(.system(size: 14, weight: .light))
+                    .foregroundStyle(accent)
+                Text(label)
+                    .font(.custom("Cinzel-Regular", size: 12))
+                    .tracking(1.5)
+                    .foregroundStyle(Color.tomeParchment)
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.caption2)
+                    .foregroundStyle(Color.tomeSepia)
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(Color.tomeLeather)
+            .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+            .cornerRadius(3)
+        }
+        .buttonStyle(TomeButtonStyle())
+    }
+}
+ 
 struct FlowLayout<Item: Hashable, Content: View>: View {
     let items: [Item]
     let content: (Item) -> Content
-    
+ 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
@@ -418,12 +549,12 @@ struct FlowLayout<Item: Hashable, Content: View>: View {
         }
     }
 }
-
+ 
 struct StatCircle: View {
     let icon: String
     let value: String
     let label: String
-    
+ 
     var body: some View {
         VStack(spacing: 4) {
             Circle()
@@ -449,3 +580,5 @@ struct StatCircle: View {
         }
     }
 }
+ 
+#Preview {}

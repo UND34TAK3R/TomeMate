@@ -47,110 +47,147 @@ struct UpdateCharacterView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            Color.tomeBg.ignoresSafeArea()
+            TomeParticlesView()
+
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 6) {
-                    Text("Edit Character")
-                        .font(.title)
-                        .bold()
-                        .padding(.vertical, 10)
-
-                    // MARK: - Combat
-                    SectionHeader(title: "Combat")
-                    StatRow(label: "Hit Points",value: $hitpoints, range: 0...999)
-                    StatRow(label: "Armor Class",value: $armorClass,range: 0...30)
-                    StatRow(label: "Initiative",value: $initiative,range: -10...20)
-                    StatRow(label: "Speed", value: $speed, range: 0...120, step: 5)
-                    StatRow(label: "Passive Perception", value: $passivePerception, range: 0...30)
-
-                    Divider().padding(.vertical, 8)
-
-                    // MARK: - Character Info
-                    SectionHeader(title: "Character Info")
-                    StatRow(label: "Inspiration", value: $inspiration, range: 0...999)
-                    StatRow(label: "Age",value: $age, range: 0...999)
-                    GoldRow(label: "Gold",value: $gold)
-                    if character.useXp {
-                        XpRow(label: "Experience", value: $experience)
+                VStack(spacing: 0) {
+                    // Header
+                    VStack(spacing: 6) {
+                        Text(character.name ?? "Character")
+                            .font(.custom("Cinzel-Regular", size: 22))
+                            .foregroundStyle(Color.tomeParchment)
+                        DecorativeRuleView()
+                            .padding(.horizontal, 60)
                     }
+                    .padding(.vertical, 20)
 
-                    Divider().padding(.vertical, 8)
+                    VStack(spacing: 16) {
 
-                    // MARK: - Alignment
-                    SectionHeader(title: "Alignment")
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                        ForEach(alignments, id: \.self) { option in
-                            Button {
-                                alignment = option
-                            } label: {
-                                Text(option)
-                                    .font(.caption)
-                                    .multilineTextAlignment(.center)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 10)
-                                    .background(alignment == option ? Color.accentColor.opacity(0.15) : Color.primary.opacity(0.05))
-                                    .foregroundColor(alignment == option ? .accentColor : .primary)
-                                    .cornerRadius(10)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(alignment == option ? Color.accentColor : Color.clear, lineWidth: 1.5)
-                                    )
+                        // MARK: - Combat
+                        TomeEditSection(title: "Combat") {
+                            TomeStatRow(label: "Hit Points", value: $hitpoints, range: 0...999)
+                            TomeStatRow(label: "Armor Class", value: $armorClass, range: 0...30)
+                            TomeStatRow(label: "Initiative", value: $initiative, range: -10...20)
+                            TomeStatRow(label: "Speed", value: $speed, range: 0...120, step: 5)
+                            TomeStatRow(label: "Passive Perception", value: $passivePerception, range: 0...30)
+                        }
+
+                        // MARK: - Character Info
+                        TomeEditSection(title: "Character Info") {
+                            TomeStatRow(label: "Inspiration", value: $inspiration, range: 0...999)
+                            TomeStatRow(label: "Age", value: $age, range: 0...999)
+                            TomeGoldRow(label: "Gold", value: $gold)
+                            if character.useXp {
+                                TomeXpRow(label: "Experience", value: $experience)
                             }
                         }
+
+                        // MARK: - Alignment
+                        TomeEditSection(title: "Alignment") {
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+                                ForEach(alignments, id: \.self) { option in
+                                    Button {
+                                        alignment = option
+                                    } label: {
+                                        Text(option)
+                                            .font(.custom("IMFellEnglish-Regular", size: 11))
+                                            .italic()
+                                            .multilineTextAlignment(.center)
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.vertical, 10)
+                                            .background(alignment == option ? Color.tomeCrimson : Color.tomeLeather)
+                                            .foregroundColor(alignment == option ? Color.tomeParchment : Color.tomeMuted)
+                                            .cornerRadius(2)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 2)
+                                                    .stroke(alignment == option ? Color.tomeCrimson : Color.tomeSepia.opacity(0.3), lineWidth: 0.8)
+                                            )
+                                    }
+                                    .buttonStyle(TomeButtonStyle())
+                                }
+                            }
+                            .padding(12)
+                        }
                     }
-                    .padding(.bottom, 90)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 100)
                 }
-                .padding()
             }
 
-            Button {
-                holder.updateCharacter(
-                    character: character,
-                    gold: gold,
-                    inspiration: inspiration,
-                    hitpoints: hitpoints,
-                    armor_class: armorClass,
-                    speed: speed,
-                    experience: experience,
-                    age: age,
-                    initiative: initiative,
-                    passive_perception: passivePerception,
-                    alignement: alignment,
-                    context
+            // Save button
+            VStack(spacing: 0) {
+                LinearGradient(
+                    colors: [Color.tomeBg.opacity(0), Color.tomeBg],
+                    startPoint: .top, endPoint: .bottom
                 )
-                dismiss()
-            } label: {
-                Text("Save")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
+                .frame(height: 30)
+
+                SealButton("Save Changes", isLoading: false) {
+                    holder.updateCharacter(
+                        character: character,
+                        gold: gold,
+                        inspiration: inspiration,
+                        hitpoints: hitpoints,
+                        armor_class: armorClass,
+                        speed: speed,
+                        experience: experience,
+                        age: age,
+                        initiative: initiative,
+                        passive_perception: passivePerception,
+                        alignement: alignment,
+                        context
+                    )
+                    dismiss()
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 28)
+                .background(Color.tomeBg)
             }
-            .buttonStyle(.borderedProminent)
-            .padding(.horizontal)
-            .padding(.bottom, 20)
-            .background(
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .ignoresSafeArea()
-            )
         }
+        .navigationTitle("Edit Character")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarColorScheme(.dark, for: .navigationBar)
     }
 }
 
-// MARK: - Section Header
-private struct SectionHeader: View {
+// MARK: - Section wrapper
+private struct TomeEditSection<Content: View>: View {
     let title: String
+    let content: () -> Content
+
+    init(title: String, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.content = content
+    }
+
     var body: some View {
-        Text(title)
-            .font(.footnote)
-            .foregroundColor(.secondary)
-            .textCase(.uppercase)
-            .kerning(1)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Rectangle()
+                    .fill(Color.tomeCrimson.opacity(0.7))
+                    .frame(width: 2, height: 12)
+                    .cornerRadius(1)
+                Text(title.uppercased())
+                    .font(.custom("Cinzel-Regular", size: 9))
+                    .tracking(2.5)
+                    .foregroundStyle(Color.tomeMuted)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 8)
+            .background(Color.tomeSpine)
+
+            content()
+        }
+        .background(Color.tomeLeather)
+        .overlay(RoundedRectangle(cornerRadius: 3).strokeBorder(Color.tomeSepia.opacity(0.3), lineWidth: 0.8))
+        .cornerRadius(3)
     }
 }
 
-// MARK: - Regular Stat Row
-private struct StatRow: View {
+// MARK: - Stat Row
+private struct TomeStatRow: View {
     let label: String
     @Binding var value: Double
     let range: ClosedRange<Double>
@@ -159,37 +196,45 @@ private struct StatRow: View {
     var body: some View {
         HStack {
             Text(label)
-                .font(.subheadline)
+                .font(.custom("IMFellEnglish-Regular", size: 14))
+                .foregroundStyle(Color.tomeParchment)
             Spacer()
-            HStack(spacing: 12) {
+            HStack(spacing: 14) {
                 Button {
                     if value - step >= range.lowerBound { value -= step }
                 } label: {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.secondary)
+                    Image(systemName: "minus")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(Color.tomeCrimsonLight)
+                        .frame(width: 28, height: 28)
+                        .background(Color.tomeSpine)
+                        .cornerRadius(2)
                 }
                 Text("\(Int(value))")
-                    .font(.headline)
-                    .frame(minWidth: 40)
+                    .font(.custom("Cinzel-Regular", size: 16))
+                    .foregroundStyle(Color.tomeGold)
+                    .frame(minWidth: 36)
                     .multilineTextAlignment(.center)
                 Button {
                     if value + step <= range.upperBound { value += step }
                 } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(.secondary)
+                    Image(systemName: "plus")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundStyle(Color.tomeGold)
+                        .frame(width: 28, height: 28)
+                        .background(Color.tomeSpine)
+                        .cornerRadius(2)
                 }
             }
         }
-        .padding()
-        .background(Color.primary.opacity(0.04))
-        .cornerRadius(12)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .overlay(Rectangle().fill(Color.tomeSepia.opacity(0.15)).frame(height: 0.8), alignment: .bottom)
     }
 }
 
-// MARK: - Gold Row (step 1, 10, 100)
-private struct GoldRow: View {
+// MARK: - Gold Row
+private struct TomeGoldRow: View {
     let label: String
     @Binding var value: Double
 
@@ -197,30 +242,31 @@ private struct GoldRow: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(label)
-                    .font(.subheadline)
+                    .font(.custom("IMFellEnglish-Regular", size: 14))
+                    .foregroundStyle(Color.tomeParchment)
                 Spacer()
                 Text("\(Int(value)) gp")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+                    .font(.custom("Cinzel-Regular", size: 14))
+                    .foregroundStyle(Color.tomeGold)
             }
-            HStack(spacing: 8) {
-                StepButton(label: "-100", color: .red)   { value = max(0, value - 100) }
-                StepButton(label: "-10",  color: .red)   { value = max(0, value - 10)  }
-                StepButton(label: "-1",   color: .red)   { value = max(0, value - 1)   }
+            HStack(spacing: 6) {
+                TomeStepBtn(label: "-100", color: .tomeCrimsonLight) { value = max(0, value - 100) }
+                TomeStepBtn(label: "-10",  color: .tomeCrimsonLight) { value = max(0, value - 10)  }
+                TomeStepBtn(label: "-1",   color: .tomeCrimsonLight) { value = max(0, value - 1)   }
                 Spacer()
-                StepButton(label: "+1",   color: .green) { value += 1   }
-                StepButton(label: "+10",  color: .green) { value += 10  }
-                StepButton(label: "+100", color: .green) { value += 100 }
+                TomeStepBtn(label: "+1",   color: .tomeGold)         { value += 1   }
+                TomeStepBtn(label: "+10",  color: .tomeGold)         { value += 10  }
+                TomeStepBtn(label: "+100", color: .tomeGold)         { value += 100 }
             }
         }
-        .padding()
-        .background(Color.primary.opacity(0.04))
-        .cornerRadius(12)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .overlay(Rectangle().fill(Color.tomeSepia.opacity(0.15)).frame(height: 0.8), alignment: .bottom)
     }
 }
 
-// MARK: - XP Row (step 1, 100, 1000)
-private struct XpRow: View {
+// MARK: - XP Row
+private struct TomeXpRow: View {
     let label: String
     @Binding var value: Double
 
@@ -228,30 +274,30 @@ private struct XpRow: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text(label)
-                    .font(.subheadline)
+                    .font(.custom("IMFellEnglish-Regular", size: 14))
+                    .foregroundStyle(Color.tomeParchment)
                 Spacer()
                 Text("\(Int(value)) XP")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+                    .font(.custom("Cinzel-Regular", size: 14))
+                    .foregroundStyle(Color.tomeGoldLight)
             }
-            HStack(spacing: 8) {
-                StepButton(label: "-1000", color: .red)   { value = max(0, value - 1000) }
-                StepButton(label: "-100",  color: .red)   { value = max(0, value - 100)  }
-                StepButton(label: "-1",    color: .red)   { value = max(0, value - 1)    }
+            HStack(spacing: 6) {
+                TomeStepBtn(label: "-1k",  color: .tomeCrimsonLight) { value = max(0, value - 1000) }
+                TomeStepBtn(label: "-100", color: .tomeCrimsonLight) { value = max(0, value - 100)  }
+                TomeStepBtn(label: "-1",   color: .tomeCrimsonLight) { value = max(0, value - 1)    }
                 Spacer()
-                StepButton(label: "+1",    color: .green) { value += 1    }
-                StepButton(label: "+100",  color: .green) { value += 100  }
-                StepButton(label: "+1000", color: .green) { value += 1000 }
+                TomeStepBtn(label: "+1",   color: .tomeGold)         { value += 1    }
+                TomeStepBtn(label: "+100", color: .tomeGold)         { value += 100  }
+                TomeStepBtn(label: "+1k",  color: .tomeGold)         { value += 1000 }
             }
         }
-        .padding()
-        .background(Color.primary.opacity(0.04))
-        .cornerRadius(12)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
     }
 }
 
-// MARK: - Step Button helper
-private struct StepButton: View {
+// MARK: - Step Button
+private struct TomeStepBtn: View {
     let label: String
     let color: Color
     let action: () -> Void
@@ -259,17 +305,19 @@ private struct StepButton: View {
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.caption)
-                .fontWeight(.semibold)
-                .padding(.horizontal, 10)
+                .font(.custom("Cinzel-Regular", size: 10))
+                .tracking(0.5)
+                .padding(.horizontal, 9)
                 .padding(.vertical, 6)
                 .background(color.opacity(0.12))
                 .foregroundColor(color)
-                .cornerRadius(8)
+                .cornerRadius(2)
+                .overlay(RoundedRectangle(cornerRadius: 2).strokeBorder(color.opacity(0.25), lineWidth: 0.8))
         }
+        .buttonStyle(TomeButtonStyle())
     }
 }
 
 #Preview {
-    // UpdateCharacterStatsView(character: ...)
+    
 }

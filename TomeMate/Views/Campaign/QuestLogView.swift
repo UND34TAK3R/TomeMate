@@ -17,57 +17,57 @@ struct QuestLogView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing){
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 12) {
-                if campaignQuests.isEmpty {
-                    VStack(spacing: 12) {
-                        Spacer(minLength: 60)
-                        Image(systemName: "scroll")
-                            .font(.system(size: 48))
-                            .foregroundColor(.secondary.opacity(0.4))
-                        Text("No quests yet")
-                            .font(.system(size: 18, weight: .semibold))
-                        Text("Add your first quest to begin the adventure.")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 40)
-                        Spacer()
-                    }
-                    .frame(maxWidth: .infinity)
-                } else {
-                    ForEach(campaignQuests, id: \.self) { q in
-                        NavigationLink {
-                            QuestDetailView(quest: q)
-                        } label: {
-                            QuestCard(quest: q)
+        ZStack(alignment: .bottomTrailing) {
+            Color.tomeBg.ignoresSafeArea()
+            TomeParticlesView()
+
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 10) {
+                    if campaignQuests.isEmpty {
+                        TomeEmptyStateView(message: "No quests yet. Begin the adventure.")
+                    } else {
+                        ForEach(campaignQuests, id: \.self) { q in
+                            NavigationLink {
+                                QuestDetailView(quest: q)
+                            } label: {
+                                QuestCard(quest: q)
+                            }
+                            .buttonStyle(TomeButtonStyle())
                         }
-                        .buttonStyle(.plain)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+                .padding(.bottom, 100)
+            }
+            .navigationTitle(campaign.name ?? "Quest Log")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: AddQuestView(campaign: campaign)) {
+                        Image(systemName: "plus")
+                            .foregroundColor(.tomeGold)
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 12)
-        }
-        .navigationTitle(campaign.name ?? "Quest Log")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(destination: AddQuestView(campaign: campaign)) {
-                    Image(systemName: "plus")
-                        .fontWeight(.semibold)
+
+            // World Map FAB
+            NavigationLink(destination: WorldMapView(campaign: campaign)) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.tomeCrimson, Color("#A02020")],
+                                startPoint: .topLeading, endPoint: .bottomTrailing
+                            )
+                        )
+                        .shadow(color: Color.tomeCrimson.opacity(0.5), radius: 12, x: 0, y: 4)
+                    Image(systemName: "map")
+                        .font(.system(size: 20, weight: .light))
+                        .foregroundColor(.tomeParchment)
                 }
-            }
-            }
-            NavigationLink(destination: WorldMapView(campaign: campaign)){
-                Image(systemName: "map")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(.white)
-                    .frame(width: 56, height: 56)
-                    .background(Color.red)
-                    .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                .frame(width: 58, height: 58)
             }
             .padding(24)
         }
@@ -76,74 +76,81 @@ struct QuestLogView: View {
 
 // MARK: - Quest Card
 struct QuestCard: View {
-    
     let quest: Quest
-    
+
     var statusColor: Color {
         switch quest.status {
-        case "Active":    return .blue
-        case "Completed": return .green
-        case "Failed":    return .red
-        default:          return .secondary
+        case "Active": return Color.tomeGoldLight
+        case "Completed": return Color("#4A7A3A")
+        case "Failed": return Color.tomeCrimsonLight
+        default: return Color.tomeMuted
         }
     }
-    
+
     var statusIcon: String {
         switch quest.status {
-        case "Active":    return "clock.fill"
+        case "Active": return "clock.fill"
         case "Completed": return "checkmark.circle.fill"
-        case "Failed":    return "xmark.circle.fill"
-        default:          return "circle"
+        case "Failed": return "xmark.circle.fill"
+        default: return "circle"
         }
     }
-    
+
     var body: some View {
-        RoundedRectangle(cornerRadius: 14)
-            .fill(Color(.systemBackground))
-            .shadow(color: .black.opacity(0.06), radius: 6, x: 0, y: 2)
-            .overlay {
+        ZStack {
+            RoundedRectangle(cornerRadius: 3)
+                .fill(Color.tomeLeather)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 3)
+                        .strokeBorder(Color.tomeSepia.opacity(0.35), lineWidth: 0.8)
+                )
+                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 2)
+
+            HStack(spacing: 0) {
+                // Status bar
+                Rectangle()
+                    .fill(statusColor)
+                    .frame(width: 3)
+                    .padding(.vertical, 12)
+                    .cornerRadius(2)
+
                 HStack(spacing: 14) {
-                    // Status indicator bar
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(statusColor)
-                        .frame(width: 4)
-                        .padding(.vertical, 14)
-                    
                     VStack(alignment: .leading, spacing: 5) {
                         Text(quest.title ?? "Unknown Quest")
-                            .font(.system(size: 15, weight: .semibold))
-                            .foregroundColor(.primary)
+                            .font(.custom("Cinzel-Regular", size: 14))
+                            .foregroundStyle(Color.tomeParchment)
                             .lineLimit(1)
-                        
+
                         if let desc = quest.desc, !desc.isEmpty {
                             Text(desc)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                                .font(.custom("IMFellEnglish-Regular", size: 11))
+                                .italic()
+                                .foregroundStyle(Color.tomeMuted)
                                 .lineLimit(2)
                         }
-                        
+
                         HStack(spacing: 4) {
                             Image(systemName: statusIcon)
-                                .font(.caption2)
+                                .font(.system(size: 9, weight: .light))
                             Text(quest.status ?? "")
-                                .font(.caption2.weight(.medium))
+                                .font(.custom("IMFellEnglish-Regular", size: 10))
+                                .italic()
                         }
                         .foregroundColor(statusColor)
                         .padding(.top, 2)
                     }
-                    
+
                     Spacer()
-                    
+
                     Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundColor(.secondary.opacity(0.5))
-                        .padding(.trailing, 4)
+                        .font(.caption2)
+                        .foregroundStyle(Color.tomeSepia)
                 }
-                .padding(.leading, 12)
-                .padding(.trailing, 16)
-                .padding(.vertical, 4)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 14)
             }
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 80)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 80)
     }
 }
