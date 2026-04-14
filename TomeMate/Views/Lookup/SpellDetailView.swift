@@ -23,42 +23,66 @@ struct SpellDetailView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(spell.name)
-                            .font(.custom("Cinzel-Regular", size: 48))
-                            .foregroundStyle(Color.tomeCrimson)
+                            .font(.custom("Cinzel-Regular", size: 35))
+                            .foregroundStyle(Color.tomeGoldLight)
                         
                         DecorativeRuleView()
                         
-                        Text("\(ordinal(spell.level)) \(spell.school.capitalized)")                  .font(.custom("IMFellEnglish-Regular", size: 26))
-                            .italic()
-                            .foregroundStyle(Color.tomeSepia)
-                        Text("Casting Time: \(spell.cast_time) action(s)")
-                            .font(.custom("IMFellEnglish-Regular", size: 26))
-                            .foregroundStyle(Color.tomeSepia)
-                        Text("Range: \(spell.range_type.capitalized)\(spell.range_amount.map { " — \($0) \(spell.range_unit ?? "")" } ?? "")")
-                            .font(.custom("IMFellEnglish-Regular", size: 26))
-                            .foregroundStyle(Color.tomeSepia)
-                        Text("Components: \(spell.components.isEmpty ? "None" : spell.components.joined(separator: ", "))")
-                            .font(.custom("IMFellEnglish-Regular", size: 26))
-                            .foregroundStyle(Color.tomeSepia)
+                        Text("\(ordinal(spell.level)) \(spell.school.capitalized)")                  .font(.custom("IMFellEnglish-Italic", size: 20))
+                            .foregroundStyle(Color.tomeGoldDim)
+                        HStack {
+                            Text("Casting Type: ")
+                                .font(.custom("IMFellEnglish-Regular", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                            Text("\(spell.cast_time)")
+                                .font(.custom("IMFellEnglish-Regular", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                        }
+                        HStack {
+                            Text("Range: ")
+                                .font(.custom("IMFellEnglish-Italic", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                            Text("\(spell.range_type.capitalized)\(spell.range_amount.map { " — \($0) \(spell.range_unit ?? "")" } ?? "")")
+                                .font(Font.custom("IMFellEnglish-Regular", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                        }
+                        HStack {
+                            Text("Components: ")
+                                .font(.custom("IMFellEnglish-Italic", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                            Text("\(spell.components.isEmpty ? "None" : spell.components.joined(separator: ", "))")
+                                .font(.custom("IMFellEnglish-Regular", size: 20))
+                                .foregroundStyle(Color.tomeGoldDim)
+                        }
                         if let amount = spell.durationAmount, let unit = spell.spell_duration_unit {
-                            Text("Duration: \(spell.is_concentration ? "Concentration, up to " : "")\(amount) \(unit)(s)")
-                                .font(.custom("IMFellEnglish-Regular", size: 26))
-                                .foregroundStyle(Color.tomeSepia)
+                            HStack {
+                                Text("Duration: ")
+                                    .font(.custom("IMFellEnglish-Italic", size: 20))
+                                    .foregroundStyle(Color.tomeGoldDim)
+                                Text("\(spell.is_concentration ? "Concentration, up to " : "")\(amount) \(unit)(s)")
+                                    .font(.custom("IMFellEnglish-Regular", size: 20))
+                                    .foregroundStyle(Color.tomeGoldDim)
+                            }
                         } else {
-                            Text("Duration: \(spell.durationType.capitalized)")
-                                .font(.custom("IMFellEnglish-Regular", size: 26))
-                                .foregroundStyle(Color.tomeSepia)
+                            HStack {
+                                Text("Duration: ")
+                                    .font(.custom("IMFellEnglish-Italic", size: 20))
+                                    .foregroundStyle(Color.tomeSepia)
+                                Text("\(spell.durationType.capitalized)")
+                                    .font(.custom("IMFellEnglish-Regular", size: 20))
+                                    .foregroundStyle(Color.tomeGoldDim)
+                            }
                         }
                         
                         // For damage calculations
                         if let damage = spell.damage_type {
                             Text("Damage Type: \(damage.capitalized)")
-                                .font(.custom("IMFellEnglish-Regular", size: 26))
+                                .font(.custom("IMFellEnglish-Regular", size: 20))
                                 .foregroundStyle(Color.tomeSepia)
                         }
                         if let save = spell.saving_throw_type {
                             Text("Saving Throw: \(save.capitalized)")
-                                .font(.custom("IMFellEnglish-Regular", size: 26))
+                                .font(.custom("IMFellEnglish-Regular", size: 20))
                                 .foregroundStyle(Color.tomeSepia)
                         }
                                         }
@@ -67,8 +91,12 @@ struct SpellDetailView: View {
                     DecorativeRuleView()
 
                     VStack(alignment: .leading, spacing: 8) {
+                        Text("Description")
+                            .font(.custom("Cinzel-Regular", size: 30))
+                            .tracking(2)
+                            .foregroundStyle(Color.tomeCrimson)
                         Text(cleanDescription(spell.description))
-                            .font(.custom("IMFellEnglish-Regular", size: 24))
+                            .font(.custom("IMFellEnglish-Regular", size: 20))
                             .foregroundStyle(Color.tomeSepia)
                             .fixedSize(horizontal: false, vertical: true)
                     }
@@ -79,7 +107,7 @@ struct SpellDetailView: View {
             .padding(24)
         }
     }
-        .navigationTitle(spell.name)
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .onAppear { appeared = true }

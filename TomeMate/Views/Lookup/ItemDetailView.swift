@@ -61,7 +61,7 @@ struct ItemDetailView: View {
                 .padding(24)
             }
         }
-        .navigationTitle(item.name)
+        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .onAppear { appeared = true }

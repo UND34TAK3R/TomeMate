@@ -114,7 +114,7 @@ struct BestiaryDetailView: View {
                     .padding(24)
                 }
             }
-            .navigationTitle(creature.name)
+            .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .onAppear { appeared = true }
